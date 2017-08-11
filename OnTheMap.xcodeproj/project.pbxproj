@@ -17,6 +17,7 @@
 		9333E0121F3D7E3C003B7374 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333E0111F3D7E3C003B7374 /* GCDBlackBox.swift */; };
 		9333E0151F3D8A3B003B7374 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333E0141F3D8A3B003B7374 /* Constants.swift */; };
 		9333E0171F3D8A5C003B7374 /* OTMClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333E0161F3D8A5C003B7374 /* OTMClient.swift */; };
+		9333E0191F3D9363003B7374 /* LocationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333E0181F3D9363003B7374 /* LocationMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		9333E0111F3D7E3C003B7374 /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
 		9333E0141F3D8A3B003B7374 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9333E0161F3D8A5C003B7374 /* OTMClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMClient.swift; sourceTree = "<group>"; };
+		9333E0181F3D9363003B7374 /* LocationMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				9333E0111F3D7E3C003B7374 /* GCDBlackBox.swift */,
 				9333DFE31F3D7D86003B7374 /* AppDelegate.swift */,
 				9333DFE51F3D7D86003B7374 /* LoginViewController.swift */,
+				9333E0181F3D9363003B7374 /* LocationMapViewController.swift */,
 				9333DFE71F3D7D86003B7374 /* Main.storyboard */,
 				9333DFEA1F3D7D86003B7374 /* Assets.xcassets */,
 				9333DFEC1F3D7D86003B7374 /* LaunchScreen.storyboard */,
@@ -281,6 +284,7 @@
 			files = (
 				9333DFE61F3D7D86003B7374 /* LoginViewController.swift in Sources */,
 				9333E0121F3D7E3C003B7374 /* GCDBlackBox.swift in Sources */,
+				9333E0191F3D9363003B7374 /* LocationMapViewController.swift in Sources */,
 				9333E0171F3D8A5C003B7374 /* OTMClient.swift in Sources */,
 				9333DFE41F3D7D86003B7374 /* AppDelegate.swift in Sources */,
 				9333E0151F3D8A3B003B7374 /* Constants.swift in Sources */,
