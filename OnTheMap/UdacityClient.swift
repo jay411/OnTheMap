@@ -11,6 +11,7 @@ import Foundation
 class UdacityClient{
     
     var session = URLSession.shared
+    var userInfo=UserData()
     
     
     class func sharedInstance() -> UdacityClient {
@@ -41,10 +42,10 @@ class UdacityClient{
                     let userInfo = [NSLocalizedDescriptionKey: error]
                     completionHandlerForPost(false,nil, NSError(domain: "taskForPostUdacity", code: 1, userInfo: userInfo))
                 }
-//                guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-//                    sendError(error: "Your request returned \(String(describing: (response as? HTTPURLResponse)?.statusCode))!")
-//                    return
-//                }
+                guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                    sendError(error: "Your request returned \(String(describing: (response as? HTTPURLResponse)?.statusCode))!")
+                    return
+                }
 
                 
             let range = Range(5..<data!.count)
@@ -68,8 +69,10 @@ class UdacityClient{
                     return
                     
                 }
+                self.userInfo.userID=userID as! String
+                print("\(self.userInfo.userID)")
                 completionHandlerForPost(true,userID,nil)
-//                print("\(userID)")
+                print("\(userID)")
             }
             //            print("\(accountData["key"])")
 //            self.getUserData(accountData["key"] as AnyObject)
@@ -90,7 +93,17 @@ class UdacityClient{
             }
             let range = Range(5..<data!.count)
             let newData = data?.subdata(in: range) /* subset response data! */
-//            print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
+            print("\n\n\n\n\n")
+           
+            var parsedResult: AnyObject! = nil
+            do {
+                parsedResult = try JSONSerialization.jsonObject(with: newData!, options: .allowFragments) as AnyObject
+                
+            }catch{
+                print("Error")
+                
+            }
+            
             completionHandlerForGet(true,newData as AnyObject,nil)
         }
         task.resume()

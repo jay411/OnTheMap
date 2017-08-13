@@ -12,23 +12,28 @@ extension UdacityClient {
 
     
     // authenticate Udacity user
-    func authenticateUdacityUser(email: String, password:String,  completionHandlerForAuthenticate: @escaping (_ success: Bool,_ data:AnyObject, _ error: String?) -> Void)  {
+    func authenticateUdacityUser(email: String, password:String,  completionHandlerForAuthenticate: @escaping (_ success: Bool, _ error: String?) -> Void)  {
         // TBD
         // prep for Udacity taskForPostUdacity
         self.taskForPostUdacity(email, password: password){  success,data,error in
             
             if success{
                 print("works")
-                completionHandlerForAuthenticate(true,data!,nil)
+                completionHandlerForAuthenticate(true,nil)
             }
         }
     
     }
-    func getUserData(_ userId:AnyObject)-> Void
+    func getUserData(_ completionHandlerForUserData: @escaping(_ success:Bool,_ error:Error?)->Void )
     {
-        self.taskForGetUdacity(userId) { success,data,error in
+        self.taskForGetUdacity(self.userInfo.userID as AnyObject) { success,data,error in
             if success{
                 print("WORKS FROM HELPER")
+                print("\n\n\n\n\(data)")
+                completionHandlerForUserData(true,nil)
+            }
+            else{
+                completionHandlerForUserData(false,error)
             }
             
         }

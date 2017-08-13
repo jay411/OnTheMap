@@ -56,10 +56,26 @@ class LoginViewController: UIViewController {
 //             */
 //        }
         UdacityClient.sharedInstance().authenticateUdacityUser(email: username, password: password){
-            (succcess,data,error) in
+            (succcess,error) in
             if succcess{
-                print("this works")
-                UdacityClient.sharedInstance().getUserData(data)
+                print("loginController:this works")
+                UdacityClient.sharedInstance().getUserData{ succcess,error in
+                    if succcess{
+                        print("it works")
+                        ParseClient.sharedInstance().getAllLocations(false, { (success, error) in
+                            if success{
+                                print("worked")
+                            }
+                            else{
+                                print(error.debugDescription)
+                            }
+                        })
+                    }
+                    else{
+                        print("\(error.debugDescription)")
+                    }
+                    
+                }
             }
             else{
                 self.invalidCredentials()
@@ -70,21 +86,7 @@ class LoginViewController: UIViewController {
 
     }
     
-//    private func getUserData(_ userId:AnyObject)-> Void
-//    {
-//        let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/users/\(userId)")!)
-//        let session = URLSession.shared
-//        let task = session.dataTask(with: request as URLRequest) { data, response, error in
-//            if error != nil { // Handle error...
-//                return
-//            }
-//            let range = Range(5..<data!.count)
-//            let newData = data?.subdata(in: range) /* subset response data! */
-//            print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
-//        }
-//        task.resume()
-//    
-//    }
+
     
     
     private func invalidCredentials(){
