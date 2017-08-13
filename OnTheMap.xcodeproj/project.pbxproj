@@ -15,9 +15,11 @@
 		9333DFF91F3D7D86003B7374 /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333DFF81F3D7D86003B7374 /* OnTheMapTests.swift */; };
 		9333E0041F3D7D86003B7374 /* OnTheMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333E0031F3D7D86003B7374 /* OnTheMapUITests.swift */; };
 		9333E0121F3D7E3C003B7374 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333E0111F3D7E3C003B7374 /* GCDBlackBox.swift */; };
-		9333E0151F3D8A3B003B7374 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333E0141F3D8A3B003B7374 /* Constants.swift */; };
-		9333E0171F3D8A5C003B7374 /* OTMClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333E0161F3D8A5C003B7374 /* OTMClient.swift */; };
+		9333E0151F3D8A3B003B7374 /* UdacityConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333E0141F3D8A3B003B7374 /* UdacityConstants.swift */; };
+		9333E0171F3D8A5C003B7374 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333E0161F3D8A5C003B7374 /* UdacityClient.swift */; };
 		9333E0191F3D9363003B7374 /* LocationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333E0181F3D9363003B7374 /* LocationMapViewController.swift */; };
+		934220601F3F8C580079F7EE /* UdacityConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9342205F1F3F8C580079F7EE /* UdacityConvenience.swift */; };
+		934220631F405FA40079F7EE /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934220621F405FA40079F7EE /* UserData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,9 +54,11 @@
 		9333E0031F3D7D86003B7374 /* OnTheMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapUITests.swift; sourceTree = "<group>"; };
 		9333E0051F3D7D86003B7374 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9333E0111F3D7E3C003B7374 /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
-		9333E0141F3D8A3B003B7374 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		9333E0161F3D8A5C003B7374 /* OTMClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMClient.swift; sourceTree = "<group>"; };
+		9333E0141F3D8A3B003B7374 /* UdacityConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = UdacityConstants.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9333E0161F3D8A5C003B7374 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = UdacityClient.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9333E0181F3D9363003B7374 /* LocationMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMapViewController.swift; sourceTree = "<group>"; };
+		9342205F1F3F8C580079F7EE /* UdacityConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConvenience.swift; sourceTree = "<group>"; };
+		934220621F405FA40079F7EE /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +109,8 @@
 		9333DFE21F3D7D86003B7374 /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
-				9333E0131F3D8A22003B7374 /* Model */,
+				934220611F405F840079F7EE /* User */,
+				9333E0131F3D8A22003B7374 /* UdacityClient */,
 				9333E0111F3D7E3C003B7374 /* GCDBlackBox.swift */,
 				9333DFE31F3D7D86003B7374 /* AppDelegate.swift */,
 				9333DFE51F3D7D86003B7374 /* LoginViewController.swift */,
@@ -136,13 +141,22 @@
 			path = OnTheMapUITests;
 			sourceTree = "<group>";
 		};
-		9333E0131F3D8A22003B7374 /* Model */ = {
+		9333E0131F3D8A22003B7374 /* UdacityClient */ = {
 			isa = PBXGroup;
 			children = (
-				9333E0141F3D8A3B003B7374 /* Constants.swift */,
-				9333E0161F3D8A5C003B7374 /* OTMClient.swift */,
+				9333E0141F3D8A3B003B7374 /* UdacityConstants.swift */,
+				9333E0161F3D8A5C003B7374 /* UdacityClient.swift */,
+				9342205F1F3F8C580079F7EE /* UdacityConvenience.swift */,
 			);
-			name = Model;
+			name = UdacityClient;
+			sourceTree = "<group>";
+		};
+		934220611F405F840079F7EE /* User */ = {
+			isa = PBXGroup;
+			children = (
+				934220621F405FA40079F7EE /* UserData.swift */,
+			);
+			name = User;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,10 +298,12 @@
 			files = (
 				9333DFE61F3D7D86003B7374 /* LoginViewController.swift in Sources */,
 				9333E0121F3D7E3C003B7374 /* GCDBlackBox.swift in Sources */,
+				934220631F405FA40079F7EE /* UserData.swift in Sources */,
 				9333E0191F3D9363003B7374 /* LocationMapViewController.swift in Sources */,
-				9333E0171F3D8A5C003B7374 /* OTMClient.swift in Sources */,
+				9333E0171F3D8A5C003B7374 /* UdacityClient.swift in Sources */,
 				9333DFE41F3D7D86003B7374 /* AppDelegate.swift in Sources */,
-				9333E0151F3D8A3B003B7374 /* Constants.swift in Sources */,
+				934220601F3F8C580079F7EE /* UdacityConvenience.swift in Sources */,
+				9333E0151F3D8A3B003B7374 /* UdacityConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +554,7 @@
 				9333E00A1F3D7D86003B7374 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9333E00B1F3D7D86003B7374 /* Build configuration list for PBXNativeTarget "OnTheMapTests" */ = {
 			isa = XCConfigurationList;
@@ -546,6 +563,7 @@
 				9333E00D1F3D7D86003B7374 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9333E00E1F3D7D86003B7374 /* Build configuration list for PBXNativeTarget "OnTheMapUITests" */ = {
 			isa = XCConfigurationList;
@@ -554,6 +572,7 @@
 				9333E0101F3D7D86003B7374 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -12,6 +12,7 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -38,54 +39,52 @@ class LoginViewController: UIViewController {
             self.invalidCredentials()
             
         }
-        let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            if error != nil { // Handle error…
-                return
+        
+        // Placeholder call the authenticateUdacityUser(email:password)
+//        // 
+//        UdacityClient.sharedInstance().authenticateUdacityUser(email: username, password: password) { (success, error) in
+//            // 
+//            
+//            
+//            //MARK: TODO - if success:
+//            /*
+//             1. store Udacity User ID -> Parse's uniqueKey
+//             2. obtain from UDACITY: the user's first_name and last_name from the User public data; store
+//             3. obtain from PARSE: the user location - option; order:-updateAt, if it exists
+//             4. obtain from PARSE: the latest 100 student locatiosn
+//             5. transition to the map view
+//             */
+//        }
+        UdacityClient.sharedInstance().authenticateUdacityUser(email: username, password: password){
+            (succcess,data,error) in
+            if succcess{
+                print("this works")
+                UdacityClient.sharedInstance().getUserData(data)
             }
-            let range = Range(5..<data!.count)
-            let newData = data?.subdata(in: range) /* subset response data! */
-            print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
-            var parsedResult: AnyObject! = nil
-            do {
-                parsedResult = try JSONSerialization.jsonObject(with: newData!, options: .allowFragments) as AnyObject
-                
-            }catch{
-                print("Error")
-                
+            else{
+                self.invalidCredentials()
             }
-            guard let accountData = parsedResult["account"] as AnyObject! else{
-                print("Error")
-                return
-            }
-//            print("\(accountData["key"])")
-            self.getUserData(accountData["key"] as AnyObject)
             
-//            self.getUserData()
+            
         }
-        task.resume()
+
     }
     
-    private func getUserData(_ userId:AnyObject)-> Void
-    {
-        let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/users/3903878747")!)
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            if error != nil { // Handle error...
-                return
-            }
-            let range = Range(5..<data!.count)
-            let newData = data?.subdata(in: range) /* subset response data! */
-            print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
-        }
-        task.resume()
-    
-    }
+//    private func getUserData(_ userId:AnyObject)-> Void
+//    {
+//        let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/users/\(userId)")!)
+//        let session = URLSession.shared
+//        let task = session.dataTask(with: request as URLRequest) { data, response, error in
+//            if error != nil { // Handle error...
+//                return
+//            }
+//            let range = Range(5..<data!.count)
+//            let newData = data?.subdata(in: range) /* subset response data! */
+//            print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
+//        }
+//        task.resume()
+//    
+//    }
     
     
     private func invalidCredentials(){
