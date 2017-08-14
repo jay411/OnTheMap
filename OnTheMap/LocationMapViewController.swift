@@ -7,13 +7,11 @@
 //
 
 import UIKit
-struct Student {
-    var firstName: String?
-    var mediUrl: String?
-    
-}
+
 
 class LocationMapViewController: UIViewController {
+    let object = UIApplication.shared.delegate
+
 
     override func viewDidLoad() {
         super.viewDidLoad()

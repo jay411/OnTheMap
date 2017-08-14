@@ -12,6 +12,9 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
+    var dataArray=[StudentData]()
+    let object = UIApplication.shared.delegate
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +28,8 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginPressed(_ sender: Any) {
+        let appDelegate = object as! AppDelegate
+
         
         guard let username = self.username.text else{
           
@@ -57,14 +62,26 @@ class LoginViewController: UIViewController {
 //        }
         UdacityClient.sharedInstance().authenticateUdacityUser(email: username, password: password){
             (succcess,error) in
+            DispatchQueue.global(qos: .userInitiated).async {
+                
+            
             if succcess{
                 print("loginController:this works")
                 UdacityClient.sharedInstance().getUserData{ succcess,error in
                     if succcess{
                         print("it works")
-                        ParseClient.sharedInstance().getAllLocations(false, { (success, error) in
+//                        ParseClient.sharedInstance().getStudentLocation({ (success, data, error) in
+//                            print("called get studentlocation")
+//                        })
+//
+                        ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
                             if success{
                                 print("worked")
+//                                print("student array: \(data)")
+
+                                appDelegate.studentsArray=data! as! [AnyObject]
+                                print("appdelegate array:\(appDelegate.studentsArray.count)")
+                                
                             }
                             else{
                                 print(error.debugDescription)
@@ -77,12 +94,21 @@ class LoginViewController: UIViewController {
                     
                 }
             }
+            
+        
+    
+    
             else{
                 self.invalidCredentials()
             }
-            
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.performSegue(withIdentifier: "segueToTable", sender: self)
+                })
+
             
         }
+        
+            }
 
     }
     
@@ -93,6 +119,11 @@ class LoginViewController: UIViewController {
         let alertController=UIAlertController(title: "Invalid credentials", message:"Please enter username/password", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller=segue.destination as! LocationsTableViewController
+        
     }
 
 }

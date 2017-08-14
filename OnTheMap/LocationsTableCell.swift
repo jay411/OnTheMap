@@ -12,4 +12,10 @@ import UIKit
 
 class LocationsTableCell: UITableViewCell{
     
+ 
+    @IBOutlet weak var urlButton: UIButton!
+    
+    @IBOutlet weak var name: UILabel!
+    
+    @IBOutlet weak var locationName: UILabel!
 }

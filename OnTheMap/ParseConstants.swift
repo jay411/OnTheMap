@@ -30,7 +30,7 @@ extension ParseClient{
         static let Where = "where"
     }
     struct RequestKeys{
-        static let UniqueKey = UdacityClient.sharedInstance().userInfo.userID
+        static let UniqueKey = "uniqueKey="
         static let FirstName = "firstName"
         static let LastName = "lastName"
         static let MapString = "mapString"
@@ -38,6 +38,22 @@ extension ParseClient{
         static let Latitude = "latitude"
         static let Longitude = "longitude"
 
+    }
+    
+    struct ResponseKeys{
+        
+            static let Results = "results"
+            static let ObjectId = "objectId"
+            static let UniqueKey = "uniqueKey"
+            static let FirstName = "firstName"
+            static let LastName = "lastName"
+            static let MapString = "mapString"
+            static let MediaURL = "mediaURL"
+            static let Latitude = "latitude"
+            static let Longitude = "longitude"
+            static let CreatedAt = "createdAt"
+            static let UpdatedAt = "updatedAt"
+        
     }
     
     

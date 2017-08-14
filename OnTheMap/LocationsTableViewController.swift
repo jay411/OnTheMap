@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import CoreLocation
 
 class LocationsTableViewController: UITableViewController {
+    let object = UIApplication.shared.delegate
+
+    var studentArray=[StudentData]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let appDelegate = object as! AppDelegate
+
+        studentArray = appDelegate.studentsArray as! [StudentData]
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -29,23 +36,37 @@ class LocationsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        print("\n number of cells: \(self.studentArray.count)")
+        return self.studentArray.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LocationsTableCell") as! LocationsTableCell
+//        let cell=tableView.dequeueReusableCell(withIdentifier: "memeTableCell") as! MemeTableCell
+        let student=self.studentArray[(indexPath as NSIndexPath).row]
+        if let firstName=student.firstName {
+            cell.name.text=firstName
+        }
+        if let lastName=student.lastName {
+            cell.name.text?.append(lastName)
+        }
+        
+        if let location=student.location{
+            cell.locationName.text=location
+        }
+        
 
-        // Configure the cell...
+
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

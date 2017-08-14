@@ -78,16 +78,17 @@
                     <connections>
                         <outlet property="password" destination="nVe-VJ-u1D" id="IlD-Ck-fl5"/>
                         <outlet property="username" destination="vux-jJ-Kbh" id="fw0-Ne-1Y2"/>
+                        <segue destination="ECv-Me-Z6Y" kind="presentation" identifier="segueToTable" id="P0Q-PP-pnX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
         </scene>
-        <!--Locations Table View Controller-->
+        <!--LocationsTableViewController-->
         <scene sceneID="udx-uB-iy3">
             <objects>
-                <tableViewController id="ECv-Me-Z6Y" customClass="LocationsTableViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LocationsTableViewController" title="LocationsTableViewController" id="ECv-Me-Z6Y" customClass="LocationsTableViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="78" sectionHeaderHeight="28" sectionFooterHeight="28" id="o51-lK-cGG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -140,6 +141,11 @@
                                         <constraint firstItem="akE-8W-rdH" firstAttribute="centerX" secondItem="48K-Gx-qJ4" secondAttribute="centerX" id="zuz-UW-n4M"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="locationName" destination="LmO-GX-cH3" id="Lo7-2R-GnN"/>
+                                    <outlet property="name" destination="Sc5-0u-ow1" id="DXS-Qi-fOp"/>
+                                    <outlet property="urlButton" destination="CvO-Re-HP7" id="aaO-pJ-anK"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
