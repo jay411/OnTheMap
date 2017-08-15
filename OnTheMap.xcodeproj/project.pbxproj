@@ -26,6 +26,7 @@
 		9342206C1F41166C0079F7EE /* LocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9342206B1F41166C0079F7EE /* LocationsTableViewController.swift */; };
 		9342206F1F4117360079F7EE /* LocationsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9342206E1F4117360079F7EE /* LocationsTableCell.swift */; };
 		934220711F411A5E0079F7EE /* Students.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934220701F411A5E0079F7EE /* Students.swift */; };
+		934220731F42EB6C0079F7EE /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934220721F42EB6C0079F7EE /* PostInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		9342206B1F41166C0079F7EE /* LocationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsTableViewController.swift; sourceTree = "<group>"; };
 		9342206E1F4117360079F7EE /* LocationsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsTableCell.swift; sourceTree = "<group>"; };
 		934220701F411A5E0079F7EE /* Students.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Students.swift; sourceTree = "<group>"; };
+		934220721F42EB6C0079F7EE /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				9333DFEC1F3D7D86003B7374 /* LaunchScreen.storyboard */,
 				9333DFEF1F3D7D86003B7374 /* Info.plist */,
 				934220701F411A5E0079F7EE /* Students.swift */,
+				934220721F42EB6C0079F7EE /* PostInfoViewController.swift */,
 			);
 			path = OnTheMap;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				9342206A1F40FA310079F7EE /* ParseConvenience.swift in Sources */,
 				9333DFE61F3D7D86003B7374 /* LoginViewController.swift in Sources */,
 				9333E0121F3D7E3C003B7374 /* GCDBlackBox.swift in Sources */,
+				934220731F42EB6C0079F7EE /* PostInfoViewController.swift in Sources */,
 				934220711F411A5E0079F7EE /* Students.swift in Sources */,
 				934220631F405FA40079F7EE /* UserData.swift in Sources */,
 				9333E0191F3D9363003B7374 /* LocationMapViewController.swift in Sources */,

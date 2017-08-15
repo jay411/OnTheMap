@@ -117,5 +117,8 @@ class LocationsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func postPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: "postInfoSegue", sender: self)
+    }
 
 }
