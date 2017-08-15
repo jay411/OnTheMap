@@ -60,6 +60,11 @@ class LocationsTableViewController: UITableViewController {
         if let location=student.location{
             cell.locationName.text=location
         }
+        if let url=student.mediaURL{
+            cell.urlLabel.text=url as? String
+            
+        }
+        
         
 
 

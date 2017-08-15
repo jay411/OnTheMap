@@ -99,37 +99,37 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="78"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5pP-P4-U7a" id="48K-Gx-qJ4">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="78"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="77.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="akE-8W-rdH">
-                                            <rect key="frame" x="8" y="8" width="358" height="60"/>
+                                            <rect key="frame" x="8" y="8" width="359" height="60"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xzp-zK-YUV">
-                                                    <rect key="frame" x="0.0" y="0.0" width="179" height="60"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="179.5" height="60"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sc5-0u-ow1">
-                                                            <rect key="frame" x="0.0" y="0.0" width="179" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="179.5" height="30"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LmO-GX-cH3">
-                                                            <rect key="frame" x="0.0" y="30" width="179" height="30"/>
+                                                            <rect key="frame" x="0.0" y="30" width="179.5" height="30"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CvO-Re-HP7">
-                                                    <rect key="frame" x="179" y="0.0" width="179" height="60"/>
-                                                    <state key="normal" title="Button"/>
-                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MhF-0D-cMa">
+                                                    <rect key="frame" x="179.5" y="0.0" width="179.5" height="60"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="CvO-Re-HP7" firstAttribute="top" secondItem="akE-8W-rdH" secondAttribute="top" id="93h-0n-4Z9"/>
-                                                <constraint firstAttribute="trailing" secondItem="CvO-Re-HP7" secondAttribute="trailing" id="VR8-66-YTY"/>
                                                 <constraint firstItem="xzp-zK-YUV" firstAttribute="top" secondItem="akE-8W-rdH" secondAttribute="top" id="tqu-Db-vo6"/>
                                                 <constraint firstItem="xzp-zK-YUV" firstAttribute="leading" secondItem="akE-8W-rdH" secondAttribute="leading" id="uvV-mt-iqe"/>
                                             </constraints>
@@ -145,7 +145,7 @@
                                 <connections>
                                     <outlet property="locationName" destination="LmO-GX-cH3" id="Lo7-2R-GnN"/>
                                     <outlet property="name" destination="Sc5-0u-ow1" id="DXS-Qi-fOp"/>
-                                    <outlet property="urlButton" destination="CvO-Re-HP7" id="aaO-pJ-anK"/>
+                                    <outlet property="urlLabel" destination="MhF-0D-cMa" id="iqE-Ar-msx"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -166,6 +166,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="rpJ-CT-h9R" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="qC6-zi-c8i">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
