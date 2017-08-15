@@ -18,7 +18,7 @@ class LocationsTableViewController: UITableViewController {
         super.viewDidLoad()
         let appDelegate = object as! AppDelegate
 
-        studentArray = appDelegate.studentsArray as! [StudentData]
+        self.studentArray = appDelegate.studentsArray as! [StudentData]
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -47,7 +47,7 @@ class LocationsTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LocationsTableCell") as! LocationsTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "locationsCell") as! LocationsTableCell
 //        let cell=tableView.dequeueReusableCell(withIdentifier: "memeTableCell") as! MemeTableCell
         let student=self.studentArray[(indexPath as NSIndexPath).row]
         if let firstName=student.firstName {

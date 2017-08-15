@@ -12,12 +12,27 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
-    var dataArray=[StudentData]()
-    let object = UIApplication.shared.delegate
+//    var dataArray=[StudentData]()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
+            if success{
+                print("worked")
+                //                                print("student array: \(data)")
+                let object = UIApplication.shared.delegate
+
+                let appDelegate = object as! AppDelegate
+
+                appDelegate.studentsArray=data! as! [AnyObject]
+                print("appdelegate array:\(appDelegate.studentsArray.count)")
+                
+            }
+            else{
+                print(error.debugDescription)
+            }
+        })
       
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -28,7 +43,6 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginPressed(_ sender: Any) {
-        let appDelegate = object as! AppDelegate
 
         
         guard let username = self.username.text else{
@@ -74,19 +88,19 @@ class LoginViewController: UIViewController {
 //                            print("called get studentlocation")
 //                        })
 //
-                        ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
-                            if success{
-                                print("worked")
-//                                print("student array: \(data)")
-
-                                appDelegate.studentsArray=data! as! [AnyObject]
-                                print("appdelegate array:\(appDelegate.studentsArray.count)")
-                                
-                            }
-                            else{
-                                print(error.debugDescription)
-                            }
-                        })
+//                        ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
+//                            if success{
+//                                print("worked")
+////                                print("student array: \(data)")
+//
+//                                appDelegate.studentsArray=data! as! [AnyObject]
+//                                print("appdelegate array:\(appDelegate.studentsArray.count)")
+//                                
+//                            }
+//                            else{
+//                                print(error.debugDescription)
+//                            }
+//                        })
                     }
                     else{
                         print("\(error.debugDescription)")
