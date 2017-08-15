@@ -41,7 +41,7 @@ class ParseClient{
                 }
                 for item in replyDictionary {
                     print("\n item:\(item)")
-                    let student=StudentData(firstName: item[ParseClient.ResponseKeys.FirstName] as? String, lastName: item[ParseClient.ResponseKeys.LastName] as? String, longitude: item[ParseClient.ResponseKeys.Longitude] as? CLLocationCoordinate2D, latitude: item[ParseClient.ResponseKeys.Latitude] as? CLLocationCoordinate2D, mediaURL: item[ParseClient.ResponseKeys.MediaURL] as? NSURL, location: item[ParseClient.ResponseKeys.MapString] as? String)
+                    let student=StudentData(firstName: item[ParseClient.ResponseKeys.FirstName] as? String, lastName: item[ParseClient.ResponseKeys.LastName] as? String, longitude: item[ParseClient.ResponseKeys.Longitude] as? CLLocationDegrees, latitude: item[ParseClient.ResponseKeys.Latitude] as? CLLocationDegrees, mediaURL: item[ParseClient.ResponseKeys.MediaURL] as? NSURL, location: item[ParseClient.ResponseKeys.MapString] as? String)
                     self.allStudents.append(student)
                 }
                 completionHandlerForAllLocations(true, self.allStudents as AnyObject, nil)

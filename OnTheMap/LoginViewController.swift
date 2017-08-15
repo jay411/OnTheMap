@@ -136,8 +136,7 @@ class LoginViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let controller=segue.destination as! LocationsTableViewController
-        
+//        
     }
 
 }

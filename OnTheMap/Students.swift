@@ -12,8 +12,8 @@ import CoreLocation
 struct StudentData{
     var firstName:String?
     var lastName:String?
-    var longitude:CLLocationCoordinate2D?
-    var latitude:CLLocationCoordinate2D?
+    var longitude:CLLocationDegrees?
+    var latitude:CLLocationDegrees?
     var mediaURL:NSURL?
     var location:String?
 }
