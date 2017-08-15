@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--LocationMapViewController-->
         <scene sceneID="0yo-ei-on5">
             <objects>
-                <viewController id="0Bo-vw-jur" customClass="LocationMapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="LocationMapViewController" id="0Bo-vw-jur" customClass="LocationMapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yqH-bx-EHG"/>
                         <viewControllerLayoutGuide type="bottom" id="x7k-cq-1pn"/>
@@ -21,13 +21,27 @@
                     <view key="view" contentMode="scaleToFill" id="IBL-ed-EbO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uSa-1h-eds">
+                                <rect key="frame" x="16" y="20" width="343" height="598"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="uSa-1h-eds" firstAttribute="centerX" secondItem="IBL-ed-EbO" secondAttribute="centerX" id="8xu-Yl-lIZ"/>
+                            <constraint firstItem="uSa-1h-eds" firstAttribute="bottom" secondItem="x7k-cq-1pn" secondAttribute="top" id="TSw-Mr-rpU"/>
+                            <constraint firstItem="uSa-1h-eds" firstAttribute="top" secondItem="yqH-bx-EHG" secondAttribute="bottom" id="dMn-bg-LtF"/>
+                            <constraint firstItem="uSa-1h-eds" firstAttribute="leading" secondItem="IBL-ed-EbO" secondAttribute="leadingMargin" id="xuR-a2-vIS"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="I6P-Gh-Dvc"/>
+                    <connections>
+                        <outlet property="studentsMapView" destination="uSa-1h-eds" id="nO8-Yg-C6G"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9eV-t3-mNn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2137" y="680"/>
+            <point key="canvasLocation" x="2136.8000000000002" y="679.61019490254876"/>
         </scene>
         <!--LoginViewController-->
         <scene sceneID="tne-QT-ifu">
