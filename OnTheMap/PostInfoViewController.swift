@@ -7,8 +7,22 @@
 //
 
 import UIKit
+import MapKit
 
 class PostInfoViewController: UIViewController {
+    
+    @IBOutlet weak var initialStackView: UIStackView!
+    @IBOutlet weak var locationTextInput: UITextField!
+    @IBOutlet weak var findOnMap: UIButton!
+    
+    
+    @IBOutlet weak var secondStackView: UIStackView!
+
+    @IBOutlet weak var mediaURL: UITextField!
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var submitButton: UIButton!
+    lazy var geocoder = CLGeocoder()
+    var location:CLLocation?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +35,17 @@ class PostInfoViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func findClicked(_ sender: Any) {
+        self.initialStackView.isHidden=true
+        self.secondStackView.isHidden=false
+        print("find clicked")
+        self.forwardGecode()
+        
+        self.mapView.isHidden=false
+        
+        self.mapView.showAnnotations(self.mapView.annotations, animated: true)
+
+    }
 
     /*
     // MARK: - Navigation
@@ -33,3 +58,50 @@ class PostInfoViewController: UIViewController {
     */
 
 }
+
+
+extension PostInfoViewController:MKMapViewDelegate{
+    /*geocoding and mapview updates*/
+    
+    func forwardGecode(){
+        geocoder.geocodeAddressString("Mountain View,CA") { (placemarks, error) in
+            if (error != nil) {
+                print("Didnt work")
+                return
+            }
+            if let placemarksArray=placemarks, placemarksArray.count > 0{
+                self.location=placemarksArray.first?.location
+            }
+            let coordinate=self.location?.coordinate
+            let mapannotation = MKPointAnnotation()
+            mapannotation.coordinate = coordinate!
+            self.mapView.addAnnotation(mapannotation)
+            self.mapView.setRegion(MKCoordinateRegion(center: (self.location?.coordinate)!,span: MKCoordinateSpan(latitudeDelta: 0.5,longitudeDelta: 0.5)), animated: true)
+
+        }
+
+        
+    }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.pinColor = .red
+            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
+    }
+  
+    
+}
+
+

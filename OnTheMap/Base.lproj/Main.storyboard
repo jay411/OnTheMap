@@ -212,7 +212,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="LocationTextField" borderStyle="roundedRect" placeholder="Location" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WnZ-Cb-nF8">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WnZ-Cb-nF8">
                                         <rect key="frame" x="0.0" y="60" width="342" height="487"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -224,24 +224,29 @@
                                             <constraint firstAttribute="height" constant="100" id="KZq-hO-wEo"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="findClicked:" destination="NiT-iT-qGx" eventType="touchUpInside" id="GkO-jK-tkz"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="flC-Gs-Sog">
                                 <rect key="frame" x="16" y="20" width="342" height="646"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VtZ-BR-Nap">
-                                        <rect key="frame" x="0.0" y="0.0" width="342" height="137"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="230" verticalHuggingPriority="230" horizontalCompressionResistancePriority="740" verticalCompressionResistancePriority="740" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="URLTextField" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VtZ-BR-Nap">
+                                        <rect key="frame" x="0.0" y="0.0" width="342" height="107"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kdK-gF-SEd">
-                                        <rect key="frame" x="0.0" y="137" width="342" height="479"/>
+                                    <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="240" verticalHuggingPriority="240" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kdK-gF-SEd">
+                                        <rect key="frame" x="0.0" y="107" width="342" height="479"/>
                                     </mapView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEu-dk-Nfw">
-                                        <rect key="frame" x="0.0" y="616" width="342" height="30"/>
-                                        <state key="normal" title="Submit"/>
+                                        <rect key="frame" x="0.0" y="586" width="342" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="I7k-o9-nBd"/>
+                                        </constraints>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -258,6 +263,15 @@
                             <constraint firstItem="flC-Gs-Sog" firstAttribute="top" secondItem="kYo-5Y-yfy" secondAttribute="bottom" id="vqY-K3-FRX"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="findOnMap" destination="nXq-Ec-2Y8" id="nfk-0P-pdr"/>
+                        <outlet property="initialStackView" destination="ST8-nZ-ixo" id="wIt-zZ-9fu"/>
+                        <outlet property="locationTextInput" destination="WnZ-Cb-nF8" id="R6U-G5-z0S"/>
+                        <outlet property="mapView" destination="kdK-gF-SEd" id="4XD-sm-ZkH"/>
+                        <outlet property="mediaURL" destination="VtZ-BR-Nap" id="4Lw-1U-gye"/>
+                        <outlet property="secondStackView" destination="flC-Gs-Sog" id="FSy-jc-x2t"/>
+                        <outlet property="submitButton" destination="YEu-dk-Nfw" id="Mis-kR-k7z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BmN-tR-hoV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
