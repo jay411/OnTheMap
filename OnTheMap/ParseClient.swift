@@ -12,6 +12,7 @@ import CoreLocation
 class ParseClient{
     
     var allStudents=[StudentData]()
+    var objectID:String?
     
     func taskForGettingAllLocations(_ parameters:[String:AnyObject], _ completionHandlerForAllLocations: @escaping(_ success:Bool,_ data:AnyObject?,_ error:Error?)->Void){
         
@@ -40,8 +41,8 @@ class ParseClient{
                     return
                 }
                 for item in replyDictionary {
-                    print("\n item:\(item)")
-                    let student=StudentData(firstName: item[ParseClient.ResponseKeys.FirstName] as? String, lastName: item[ParseClient.ResponseKeys.LastName] as? String, longitude: item[ParseClient.ResponseKeys.Longitude] as? CLLocationDegrees, latitude: item[ParseClient.ResponseKeys.Latitude] as? CLLocationDegrees, mediaURL: item[ParseClient.ResponseKeys.MediaURL] as? NSURL, location: item[ParseClient.ResponseKeys.MapString] as? String)
+//                    print("\n item:\(item)")
+                    let student=StudentData(firstName: item[ParseClient.ResponseKeys.FirstName] as? String, lastName: item[ParseClient.ResponseKeys.LastName] as? String, longitude: item[ParseClient.ResponseKeys.Longitude] as? CLLocationDegrees, latitude: item[ParseClient.ResponseKeys.Latitude] as? CLLocationDegrees, mediaURL: item[ParseClient.ResponseKeys.MediaURL] as? String, location: item[ParseClient.ResponseKeys.MapString] as? String)
                     self.allStudents.append(student)
                 }
                 completionHandlerForAllLocations(true, self.allStudents as AnyObject, nil)
@@ -63,7 +64,7 @@ class ParseClient{
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil { // Handle error...
-                return
+                return completionHandlerForALocation(false, nil, error)
             }
             //            print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
             var parsedResult: AnyObject! = nil
@@ -82,6 +83,7 @@ class ParseClient{
             }
             //MARK:GettingALocation:TODO return location and u[date ObjectID in userinfo
             print("\r\r\r\rreply:\(replyDictionary)")
+            completionHandlerForALocation(true, replyDictionary as AnyObject, nil)
         
     }
         task.resume()

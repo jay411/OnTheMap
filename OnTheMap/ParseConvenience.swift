@@ -34,16 +34,30 @@ extension ParseClient{
         
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
     func getStudentLocation(_ completionHandlerForGet: @escaping(_ success:Bool,_ data:AnyObject?,_ error:Error?)->Void){
         var parameters=[String:AnyObject]()
-        parameters=[ParseClient.ParameterKeys.Where:[ParseClient.RequestKeys.UniqueKey:UdacityClient.sharedInstance().userInfo.userID as! String] as AnyObject]
+        parameters=[ParseClient.ParameterKeys.Where:[ParseClient.RequestKeys.UniqueKey:UdacityClient.sharedInstance().userInfo.userID!] as AnyObject]
         self.taskForGettingALocation(parameters) { (success, data, error) in
             if success {
+               
+                guard let objectID=data?[ParseClient.ResponseKeys.ObjectId] else {
+                    return completionHandlerForGet(true,nil,nil)
+                    }
+                
+
                 completionHandlerForGet(true,data,nil)
             }
         }
     }
-    func postStudentLocation(_ mapString:String,_ longitude:CLLocationCoordinate2D,_ latitude:CLLocationCoordinate2D,_ completionHandlerForPost:@escaping(_ success:Bool,_ data:AnyObject?,_ error:Error?)->Void)
+    func postStudentLocation(_ mapString:String,_ longitude:CLLocationDegrees,_ latitude:CLLocationDegrees,_ completionHandlerForPost:@escaping(_ success:Bool,_ data:AnyObject?,_ error:Error?)->Void)
     {
         var queryItems=[String:AnyObject]()
         "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}"

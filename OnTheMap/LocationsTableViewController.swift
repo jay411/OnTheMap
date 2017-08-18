@@ -16,9 +16,9 @@ class LocationsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let appDelegate = object as! AppDelegate
+        self.studentArray=ParseClient.sharedInstance().allStudents
+//        let appDelegate = object as! AppDelegate
 
-        self.studentArray = appDelegate.studentsArray as! [StudentData]
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -41,8 +41,10 @@ class LocationsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        print("\n number of cells: \(self.studentArray.count)")
-        return self.studentArray.count
+        print("\n number of cells: \(ParseClient.sharedInstance().allStudents.count)")
+        return ParseClient.sharedInstance().allStudents.count
+
+//        return self.studentArray.count
     }
 
     
@@ -61,7 +63,7 @@ class LocationsTableViewController: UITableViewController {
             cell.locationName.text=location
         }
         if let url=student.mediaURL{
-            cell.urlLabel.text=url as? String
+            cell.urlLabel.text=url
             
         }
         

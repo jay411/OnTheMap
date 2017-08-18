@@ -21,19 +21,15 @@ class LoginViewController: UIViewController {
             if success{
                 print("worked")
                 //                                print("student array: \(data)")
-                let object = UIApplication.shared.delegate
-
-                let appDelegate = object as! AppDelegate
-
-                appDelegate.studentsArray=data! as! [AnyObject]
-                print("appdelegate array:\(appDelegate.studentsArray.count)")
+                ParseClient.sharedInstance().allStudents=data! as! [StudentData]
+                print("parse client array:\(ParseClient.sharedInstance().allStudents.count)")
                 
             }
             else{
                 print(error.debugDescription)
             }
         })
-      
+               
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -76,51 +72,43 @@ class LoginViewController: UIViewController {
 //        }
         UdacityClient.sharedInstance().authenticateUdacityUser(email: username, password: password){
             (succcess,error) in
-            DispatchQueue.global(qos: .userInitiated).async {
-                
+            
+            guard error == nil else {
+                performUIUpdatesOnMain {
+                    self.username.text=""
+                    self.password.text=""
+                    self.displayAlert("Login Failed", "Username/Password is incorrect")
+                }
+                return
+            }
             
             if succcess{
                 print("loginController:this works")
                 UdacityClient.sharedInstance().getUserData{ succcess,error in
                     if succcess{
                         print("it works")
-//                        ParseClient.sharedInstance().getStudentLocation({ (success, data, error) in
-//                            print("called get studentlocation")
-//                        })
-//
-//                        ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
-//                            if success{
-//                                print("worked")
-////                                print("student array: \(data)")
-//
-//                                appDelegate.studentsArray=data! as! [AnyObject]
-//                                print("appdelegate array:\(appDelegate.studentsArray.count)")
-//                                
-//                            }
-//                            else{
-//                                print(error.debugDescription)
-//                            }
-//                        })
                     }
                     else{
                         print("\(error.debugDescription)")
+                        
                     }
-                    
-                }
+                                        }
+             
+            }
+            
+            performUIUpdatesOnMain {
+                
+                self.username.text=""
+                self.password.text=""
+                self.performSegue(withIdentifier: "segueToTable", sender: self)
+                
+                
             }
             
         
     
     
-            else{
-                self.invalidCredentials()
-            }
-                DispatchQueue.main.async(execute: { () -> Void in
-                    self.performSegue(withIdentifier: "segueToTable", sender: self)
-                })
-
-            
-        }
+           
         
             }
 

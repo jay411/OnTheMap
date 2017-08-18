@@ -70,7 +70,8 @@ class UdacityClient{
                     
                 }
                 self.userInfo.userID=userID as! String
-                print("\(self.userInfo.userID)")
+                
+                print("user ID\(self.userInfo.userID)")
                 completionHandlerForPost(true,userID,nil)
                 print("\(userID)")
             }
@@ -93,7 +94,7 @@ class UdacityClient{
             }
             let range = Range(5..<data!.count)
             let newData = data?.subdata(in: range) /* subset response data! */
-            print("\n\n\n\n\n")
+            print("get for udacity called\n\n\n\n\n")
            
             var parsedResult: AnyObject! = nil
             do {
@@ -108,6 +109,32 @@ class UdacityClient{
         }
         task.resume()
         
+        
+    }
+    
+    
+    func taskForDeletingUdacitySession(_ completionHandlerForDelete: @escaping(_ success:Bool,_ data:AnyObject?,_ error:Error?)->Void){
+        let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest) { data, response, error in
+            if error != nil { // Handle error…
+                return
+            }
+            let range = Range(5..<data!.count)
+            let newData = data?.subdata(in: range) /* subset response data! */
+            completionHandlerForDelete(true, newData as AnyObject, nil)
+            
+        }
+        task.resume()
         
     }
     

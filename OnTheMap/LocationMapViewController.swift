@@ -19,11 +19,10 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let appDelegate = object as! AppDelegate
         
-        self.studentArray = appDelegate.studentsArray as! [StudentData]
+        self.studentArray = ParseClient.sharedInstance().allStudents
         self.createAnnotations()
-        
+        print("map view loaded")
         // Do any additional setup after loading the view.
     }
 
@@ -62,7 +61,7 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
             annotation.coordinate = coordinate
             annotation.title = "\(first) \(last)"
             if let mediaURL = student.mediaURL             {
-                annotation.subtitle = mediaURL as! String
+                annotation.subtitle = mediaURL 
 
             }
             

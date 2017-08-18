@@ -27,6 +27,8 @@
 		9342206F1F4117360079F7EE /* LocationsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9342206E1F4117360079F7EE /* LocationsTableCell.swift */; };
 		934220711F411A5E0079F7EE /* Students.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934220701F411A5E0079F7EE /* Students.swift */; };
 		934220731F42EB6C0079F7EE /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934220721F42EB6C0079F7EE /* PostInfoViewController.swift */; };
+		9342212F1F46B12D0079F7EE /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9342212E1F46B12D0079F7EE /* TabBarController.swift */; };
+		934221311F46DC080079F7EE /* AlertPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934221301F46DC080079F7EE /* AlertPopup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		9342206E1F4117360079F7EE /* LocationsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsTableCell.swift; sourceTree = "<group>"; };
 		934220701F411A5E0079F7EE /* Students.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Students.swift; sourceTree = "<group>"; };
 		934220721F42EB6C0079F7EE /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostInfoViewController.swift; sourceTree = "<group>"; };
+		9342212E1F46B12D0079F7EE /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		934221301F46DC080079F7EE /* AlertPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPopup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,7 @@
 				934220611F405F840079F7EE /* User */,
 				9333E0131F3D8A22003B7374 /* UdacityClient */,
 				9333E0111F3D7E3C003B7374 /* GCDBlackBox.swift */,
+				934221301F46DC080079F7EE /* AlertPopup.swift */,
 				9333DFE31F3D7D86003B7374 /* AppDelegate.swift */,
 				9333DFE51F3D7D86003B7374 /* LoginViewController.swift */,
 				9333DFE71F3D7D86003B7374 /* Main.storyboard */,
@@ -190,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				9333E0181F3D9363003B7374 /* LocationMapViewController.swift */,
+				9342212E1F46B12D0079F7EE /* TabBarController.swift */,
 				9342206B1F41166C0079F7EE /* LocationsTableViewController.swift */,
 				9342206E1F4117360079F7EE /* LocationsTableCell.swift */,
 			);
@@ -334,6 +340,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9342206A1F40FA310079F7EE /* ParseConvenience.swift in Sources */,
+				934221311F46DC080079F7EE /* AlertPopup.swift in Sources */,
+				9342212F1F46B12D0079F7EE /* TabBarController.swift in Sources */,
 				9333DFE61F3D7D86003B7374 /* LoginViewController.swift in Sources */,
 				9333E0121F3D7E3C003B7374 /* GCDBlackBox.swift in Sources */,
 				934220731F42EB6C0079F7EE /* PostInfoViewController.swift in Sources */,

@@ -16,11 +16,15 @@ extension UdacityClient {
         // TBD
         // prep for Udacity taskForPostUdacity
         self.taskForPostUdacity(email, password: password){  success,data,error in
-            
+            guard error == nil else {
+                completionHandlerForAuthenticate(false,error?.localizedDescription)
+                return
+            }
             if success{
                 print("works")
                 completionHandlerForAuthenticate(true,nil)
             }
+            
         }
     
     }
@@ -38,6 +42,16 @@ extension UdacityClient {
             
         }
         
+    }
+    func logout(_ completionHandlerForLogout: @escaping(_ success:Bool)->Void){
+        self.taskForDeletingUdacitySession { (success, data, error) in
+            guard error == nil else {
+                return completionHandlerForLogout(false)
+            }
+            if success{
+                return completionHandlerForLogout(true)
+            }
+        }
     }
 
 }

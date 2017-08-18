@@ -14,6 +14,6 @@ struct StudentData{
     var lastName:String?
     var longitude:CLLocationDegrees?
     var latitude:CLLocationDegrees?
-    var mediaURL:NSURL?
+    var mediaURL:String?
     var location:String?
 }
