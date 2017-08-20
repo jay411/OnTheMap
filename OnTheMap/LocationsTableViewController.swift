@@ -12,11 +12,27 @@ import CoreLocation
 class LocationsTableViewController: UITableViewController {
     let object = UIApplication.shared.delegate
 
-    var studentArray=[StudentData]()
+    var studentArray=[StudentInfo]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.studentArray=ParseClient.sharedInstance().allStudents
+//        self.tableView.reloadData()
+//        self.studentArray=ParseClient.sharedInstance().allStudents
+        ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
+            if success{
+                print("worked")
+                //                                print("student array: \(data)")
+                self.studentArray=data! as! [StudentInfo]
+                print("parse client array:\(ParseClient.sharedInstance().allStudents.count)")
+                performUIUpdatesOnMain {
+                    self.tableView.reloadData()
+                }
+                
+            }
+            else{
+                print(error.debugDescription)
+            }
+        })
 //        let appDelegate = object as! AppDelegate
 
 

@@ -53,6 +53,7 @@ extension ParseClient{
             static let Longitude = "longitude"
             static let CreatedAt = "createdAt"
             static let UpdatedAt = "updatedAt"
+            static let ObjectID = "objectId"
         
     }
     

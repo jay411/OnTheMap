@@ -13,15 +13,16 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("tab bar view did load called")
-        ParseClient.sharedInstance().getStudentLocation { (success, data, error) in
-            guard error == nil else {
-                print("\(error?.localizedDescription)")
-                return
-            }
-            if success{
-                print("data:\(data)")
-            }
-        }
+//        ParseClient.sharedInstance().getStudentLocation { (success, data, error) in
+//            guard error == nil else {
+//                print("\(error?.localizedDescription)")
+//                return
+//            }
+//            if success{
+////                print("data:\(data)")
+//            }
+//        }
+//        
 
                // Do any additional setup after loading the view.
     }
@@ -48,6 +49,7 @@ class TabBarController: UITabBarController {
             print("Locations Mapview controller called")
             let storyboard = UIStoryboard (name: "Main", bundle: nil)
             let resultVC = storyboard.instantiateViewController(withIdentifier: "LocationMapViewController") as! LocationMapViewController
+            
             performUIUpdatesOnMain {
                 
             
@@ -76,7 +78,7 @@ class TabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
     // MARK: - Navigation
 

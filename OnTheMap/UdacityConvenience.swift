@@ -28,16 +28,15 @@ extension UdacityClient {
         }
     
     }
-    func getUserData(_ completionHandlerForUserData: @escaping(_ success:Bool,_ error:Error?)->Void )
+    func getUserInfo(_ completionHandlerForUserInfo: @escaping(_ success:Bool,_ error:Error?)->Void )
     {
-        self.taskForGetUdacity(self.userInfo.userID as AnyObject) { success,data,error in
+        self.taskForGetUdacity(UserData.sharedInstance().userData.userID as AnyObject) { success,data,error in
             if success{
                 print("WORKS FROM HELPER")
-                print("\n\n\n\n\(data)")
-                completionHandlerForUserData(true,nil)
+                completionHandlerForUserInfo(true,nil)
             }
             else{
-                completionHandlerForUserData(false,error)
+                completionHandlerForUserInfo(false,error)
             }
             
         }

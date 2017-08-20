@@ -11,16 +11,18 @@ import CoreLocation
 
 class ParseClient{
     
-    var allStudents=[StudentData]()
+    var allStudents=[StudentInfo]()
     var objectID:String?
     
     func taskForGettingAllLocations(_ parameters:[String:AnyObject], _ completionHandlerForAllLocations: @escaping(_ success:Bool,_ data:AnyObject?,_ error:Error?)->Void){
         
            let urlParameters=parameters
            let request = NSMutableURLRequest(url: parseURLFromParameters(urlParameters, withPathExtension: ParseClient.Methods.method))
+            allStudents = []
     
         
-            request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+       
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
             request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
             let session = URLSession.shared
             let task = session.dataTask(with: request as URLRequest) { data, response, error in
@@ -42,7 +44,7 @@ class ParseClient{
                 }
                 for item in replyDictionary {
 //                    print("\n item:\(item)")
-                    let student=StudentData(firstName: item[ParseClient.ResponseKeys.FirstName] as? String, lastName: item[ParseClient.ResponseKeys.LastName] as? String, longitude: item[ParseClient.ResponseKeys.Longitude] as? CLLocationDegrees, latitude: item[ParseClient.ResponseKeys.Latitude] as? CLLocationDegrees, mediaURL: item[ParseClient.ResponseKeys.MediaURL] as? String, location: item[ParseClient.ResponseKeys.MapString] as? String)
+                    let student=StudentInfo(firstName: item[ParseClient.ResponseKeys.FirstName] as? String, lastName: item[ParseClient.ResponseKeys.LastName] as? String, longitude: item[ParseClient.ResponseKeys.Longitude] as? CLLocationDegrees, latitude: item[ParseClient.ResponseKeys.Latitude] as? CLLocationDegrees, mediaURL: item[ParseClient.ResponseKeys.MediaURL] as? String, location: item[ParseClient.ResponseKeys.MapString] as? String,objectID: item[ParseClient.ResponseKeys.ObjectId] as! String)
                     self.allStudents.append(student)
                 }
                 completionHandlerForAllLocations(true, self.allStudents as AnyObject, nil)
@@ -50,11 +52,22 @@ class ParseClient{
         }
         task.resume()
     }
+    
+    
+    
+    
+    
+    
+    
+    
+//MARK: Getting a students location
+    
     func taskForGettingALocation(_ parameters:[String:AnyObject],_ completionHandlerForALocation: @escaping(_ success:Bool,_ data:AnyObject?, _ error:Error?)->Void){
         
         let urlParameters=parameters
 //        let request = NSMutableURLRequest(url: parseURLFromParameters(urlParameters, withPathExtension: ParseClient.Methods.method))
-        let request=NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%22\(UdacityClient.sharedInstance().userInfo.userID!)%22%7D")!)
+        
+        let request=NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%22\(UserData.sharedInstance().userData.userID!)%22%7D&order=-updatedAt")!)
 //        let request=NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%221234%22%7D")!)
 //        https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%221234%22%7D
         print(request)
@@ -81,8 +94,8 @@ class ParseClient{
                 print("couldnt create response dictionary")
                 return
             }
-            //MARK:GettingALocation:TODO return location and u[date ObjectID in userinfo
             print("\r\r\r\rreply:\(replyDictionary)")
+            
             completionHandlerForALocation(true, replyDictionary as AnyObject, nil)
         
     }
@@ -114,6 +127,7 @@ class ParseClient{
                 print("could not post and retrive object ID")
                 return
             }
+            print("Object ID after posting: \(objectID)")
             completionHandlerForPost(true, objectID as AnyObject,nil)
         }
         task.resume()

@@ -81,6 +81,7 @@ class PostInfoViewController: UIViewController {
     @IBAction func submitLocation(_ sender: Any) {
         print("submit pressed")
         guard let mapString = self.locationTextInput.text else{
+            print("could not create mapstring")
             return
         }
         ParseClient.sharedInstance().postStudentLocation(mapString, longitudeForSubmit!, latitudeForSubmit!) { (success, data, error) in
@@ -96,32 +97,40 @@ class PostInfoViewController: UIViewController {
             }
             if success{
                 print("data posted")
-                ParseClient.sharedInstance().getStudentLocation({ (success, data, error) in
-                    guard error == nil else{
-                        performUIUpdatesOnMain {
-                            self.displayAlert("couldnt get user data", "\(error?.localizedDescription)")
-                        }
-                        return
-                    }
-                    if success{
-                        print("data after post: \(data!)")
-                    }
-                })
+//                ParseClient.sharedInstance().getStudentLocation({ (success, data, error) in
+//                    guard error == nil else{
+//                        performUIUpdatesOnMain {
+//                            self.displayAlert("couldnt get user data", "\(error?.localizedDescription)")
+//                        }
+//                        return
+//                    }
+//                    if success{
+//                        guard data != nil else{
+//                            print("data is nil")
+//                            return
+//                        }
+//                    }
+//                })
                 
             
+            }
         }
-    }
-    /*
-    // MARK: - Navigation
+        ParseClient.sharedInstance().getStudentLocation { (success, data, error) in
+            guard error == nil else {
+                print("\(error?.localizedDescription)")
+                return
+            }
+            if success{
+                print("user data:\(data)")
+                performUIUpdatesOnMain {
+                    self.dismiss(animated: true, completion: nil)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+                }
+                //                print("data:\(data)")
+            }
+        }
+        
     }
-    */
-
-}
 }
 
 

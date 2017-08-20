@@ -12,16 +12,33 @@ import MapKit
 
 class LocationMapViewController: UIViewController,MKMapViewDelegate {
     let object = UIApplication.shared.delegate
-    var studentArray=[StudentData]()
+    var studentArray=[StudentInfo]()
 
 
     @IBOutlet weak var studentsMapView: MKMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.studentArray = ParseClient.sharedInstance().allStudents
-        self.createAnnotations()
+//        self.studentArray = ParseClient.sharedInstance().allStudents
+        ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
+            if success{
+                print("worked")
+                //                                print("student array: \(data)")
+                self.studentArray=data! as! [StudentInfo]
+                print("parse client array:\(ParseClient.sharedInstance().allStudents.count)")
+                performUIUpdatesOnMain {
+//                    self.studentsMapView.reloadData()
+                    self.createAnnotations()
+
+                }
+                
+            }
+            else{
+                print(error.debugDescription)
+            }
+        })
+
+//        self.createAnnotations()
         print("map view loaded")
         // Do any additional setup after loading the view.
     }
@@ -45,14 +62,22 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
             
             // Notice that the float values are being used to create CLLocationDegree values.
             // This is a version of the Double type.
-            let lat = student.latitude
-            let long = student.longitude
+            guard let lat = student.latitude else{
+                continue
+            }
+            guard let long = student.longitude else{
+                continue
+            }
             
             // The lat and long are used to create a CLLocationCoordinates2D instance.
-            let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
+            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             
-            let first = student.firstName
-            let last = student.lastName
+            guard let first = student.firstName else {
+                continue
+            }
+            guard let last = student.lastName else{
+                continue
+            }
            
             
             
@@ -73,7 +98,6 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
 
     }
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         let reuseId = "pin"
         
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
@@ -81,7 +105,7 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
-            pinView!.pinColor = .red
+            pinView!.pinTintColor = .red
             pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         else {

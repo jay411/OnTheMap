@@ -11,7 +11,7 @@ import Foundation
 class UdacityClient{
     
     var session = URLSession.shared
-    var userInfo=UserData()
+//    var userInfo=UserInfo()
     
     
     class func sharedInstance() -> UdacityClient {
@@ -50,7 +50,7 @@ class UdacityClient{
                 
             let range = Range(5..<data!.count)
             let newData = data?.subdata(in: range) /* subset response data! */
-            print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
+//            print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
             var parsedResult: AnyObject! = nil
             do {
                 parsedResult = try JSONSerialization.jsonObject(with: newData!, options: .allowFragments) as AnyObject
@@ -69,17 +69,20 @@ class UdacityClient{
                     return
                     
                 }
-                self.userInfo.userID=userID as! String
+//                self.userInfo.userID=userID as! String
+                UserData.sharedInstance().userData.userID=userID as? String
                 
-                print("user ID\(self.userInfo.userID)")
+                print("user ID\(UserData.sharedInstance().userData.userID)")
+                
+
+                
                 completionHandlerForPost(true,userID,nil)
-                print("\(userID)")
             }
             //            print("\(accountData["key"])")
-//            self.getUserData(accountData["key"] as AnyObject)
+//            self.getUserInfo(accountData["key"] as AnyObject)
             
             
-            //            self.getUserData()
+            //            self.getUserInfo()
         }
         task.resume()
     }
@@ -99,11 +102,25 @@ class UdacityClient{
             var parsedResult: AnyObject! = nil
             do {
                 parsedResult = try JSONSerialization.jsonObject(with: newData!, options: .allowFragments) as AnyObject
-                
             }catch{
                 print("Error")
                 
             }
+            guard let userResult = parsedResult["user"] as? [String:AnyObject]? else {
+                print("could not create dictionary")
+                return
+            }
+            guard let firstName = userResult?["first_name"] as! String? else{
+                print("couldnt parse")
+                return
+            }
+            UserData.sharedInstance().userData.firstName=firstName
+            guard let lastName = userResult?["last_name"] as! String? else{
+                print("couldnt parse")
+                return
+            }
+            UserData.sharedInstance().userData.lastName=lastName
+
             
             completionHandlerForGet(true,newData as AnyObject,nil)
         }

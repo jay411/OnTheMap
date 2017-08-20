@@ -12,23 +12,12 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
-//    var dataArray=[StudentData]()
+//    var dataArray=[StudentInfo]()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
-            if success{
-                print("worked")
-                //                                print("student array: \(data)")
-                ParseClient.sharedInstance().allStudents=data! as! [StudentData]
-                print("parse client array:\(ParseClient.sharedInstance().allStudents.count)")
-                
-            }
-            else{
-                print(error.debugDescription)
-            }
-        })
+
                
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -54,22 +43,7 @@ class LoginViewController: UIViewController {
             self.invalidCredentials()
             
         }
-        
-        // Placeholder call the authenticateUdacityUser(email:password)
-//        // 
-//        UdacityClient.sharedInstance().authenticateUdacityUser(email: username, password: password) { (success, error) in
-//            // 
-//            
-//            
-//            //MARK: TODO - if success:
-//            /*
-//             1. store Udacity User ID -> Parse's uniqueKey
-//             2. obtain from UDACITY: the user's first_name and last_name from the User public data; store
-//             3. obtain from PARSE: the user location - option; order:-updateAt, if it exists
-//             4. obtain from PARSE: the latest 100 student locatiosn
-//             5. transition to the map view
-//             */
-//        }
+    
         UdacityClient.sharedInstance().authenticateUdacityUser(email: username, password: password){
             (succcess,error) in
             
@@ -84,12 +58,12 @@ class LoginViewController: UIViewController {
             
             if succcess{
                 print("loginController:this works")
-                UdacityClient.sharedInstance().getUserData{ succcess,error in
+                UdacityClient.sharedInstance().getUserInfo{ succcess,error in
                     if succcess{
                         print("it works")
                     }
                     else{
-                        print("\(error.debugDescription)")
+                        print("\(error?.localizedDescription)")
                         
                     }
                                         }

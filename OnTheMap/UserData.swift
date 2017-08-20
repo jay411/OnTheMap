@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct UserData {
+struct UserInfo {
     var firstName: String?
     var lastName: String?
     var userID: String?
@@ -17,4 +17,14 @@ struct UserData {
     var latitue: String?
     var objectID: String?
     
+}
+
+class UserData{
+    var userData=UserInfo()
+    class func sharedInstance() -> UserData {
+        struct Singleton {
+            static var sharedInstance = UserData()
+        }
+        return Singleton.sharedInstance
+    }
 }

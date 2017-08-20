@@ -35,33 +35,42 @@ extension ParseClient{
     }
     
     
-    
-    
-    
-    
-    
-    
-    
     func getStudentLocation(_ completionHandlerForGet: @escaping(_ success:Bool,_ data:AnyObject?,_ error:Error?)->Void){
         var parameters=[String:AnyObject]()
-        parameters=[ParseClient.ParameterKeys.Where:[ParseClient.RequestKeys.UniqueKey:UdacityClient.sharedInstance().userInfo.userID!] as AnyObject]
+        parameters=[ParseClient.ParameterKeys.Where:[ParseClient.RequestKeys.UniqueKey:UserData.sharedInstance().userData.userID!] as AnyObject]
         self.taskForGettingALocation(parameters) { (success, data, error) in
+            guard error == nil else{
+                return completionHandlerForGet(false,nil,error)
+            }
             if success {
                
-                guard let objectID=data?[ParseClient.ResponseKeys.ObjectId] else {
+                guard data?[ParseClient.ResponseKeys.ObjectID] != nil else {
+                    print("no object id")
                     return completionHandlerForGet(true,nil,nil)
                     }
                 
-
+                
                 completionHandlerForGet(true,data,nil)
             }
         }
     }
+    
+    
     func postStudentLocation(_ mapString:String,_ longitude:CLLocationDegrees,_ latitude:CLLocationDegrees,_ completionHandlerForPost:@escaping(_ success:Bool,_ data:AnyObject?,_ error:Error?)->Void)
     {
         var queryItems=[String:AnyObject]()
         "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}"
-        queryItems=[ParseClient.RequestKeys.UniqueKey:UdacityClient.sharedInstance().userInfo.userID as AnyObject,ParseClient.RequestKeys.FirstName:UdacityClient.sharedInstance().userInfo.firstName as AnyObject, ParseClient.RequestKeys.LastName:UdacityClient.sharedInstance().userInfo.lastName as AnyObject,ParseClient.RequestKeys.MapString:mapString as AnyObject,ParseClient.RequestKeys.Longitude:longitude as AnyObject,ParseClient.RequestKeys.Latitude:latitude as AnyObject]
+        print("userID:\(UserData.sharedInstance().userData.userID)")
+        queryItems=[ParseClient.RequestKeys.UniqueKey:UserData.sharedInstance().userData.userID as AnyObject,ParseClient.RequestKeys.FirstName:UserData.sharedInstance().userData.firstName as AnyObject, ParseClient.RequestKeys.LastName:UserData.sharedInstance().userData.lastName as AnyObject,ParseClient.RequestKeys.MapString:mapString as AnyObject,ParseClient.RequestKeys.Longitude:longitude as AnyObject,ParseClient.RequestKeys.Latitude:latitude as AnyObject]
+        print("\(queryItems)")
+        self.taskForPostToParse(queryItems) { (success, data, error) in
+            guard error == nil else {
+                return completionHandlerForPost(false, nil, error)
+            }
+            if success{
+                completionHandlerForPost(true,data,nil)
+            }
+        }
         
     }
 }
