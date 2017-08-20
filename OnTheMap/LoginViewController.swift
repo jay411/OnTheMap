@@ -12,6 +12,7 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
+    //https://www.udacity.com/account/auth#!/signup
 //    var dataArray=[StudentInfo]()
 
     @IBOutlet weak var activityView: UIActivityIndicatorView!
@@ -33,6 +34,10 @@ class LoginViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         unsubscribeToKeyboardNotifications()
+    }
+    @IBAction func signUpPressed(_ sender: Any) {
+        
+        UIApplication.shared.open((NSURL(string:"https://www.udacity.com/account/auth#!/signup")! as URL), options: [:], completionHandler: nil)
     }
 
     @IBAction func loginPressed(_ sender: Any) {

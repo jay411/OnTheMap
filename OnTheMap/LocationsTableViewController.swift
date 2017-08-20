@@ -89,7 +89,16 @@ class LocationsTableViewController: UITableViewController {
 
         return cell
     }
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let url=self.studentArray[(indexPath as NSIndexPath).row].mediaURL else{
+            return
+        }
+        if NSURL(string: url) != nil {
+            UIApplication.shared.open((NSURL(string: url)! as URL), options: [:], completionHandler: nil)
+
+            
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.
