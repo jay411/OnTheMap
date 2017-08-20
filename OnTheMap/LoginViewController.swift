@@ -14,11 +14,14 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
 //    var dataArray=[StudentInfo]()
 
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.activityView.hidesWhenStopped=true
 
-               
+        subscribeToKeyboardNotifications()
+
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -26,9 +29,15 @@ class LoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        unsubscribeToKeyboardNotifications()
+    }
 
     @IBAction func loginPressed(_ sender: Any) {
-
+        self.activityView.startAnimating()
+        self.activityView.isHidden=false
         
         guard let username = self.username.text else{
           
@@ -51,6 +60,7 @@ class LoginViewController: UIViewController {
                 performUIUpdatesOnMain {
                     self.username.text=""
                     self.password.text=""
+                    self.activityView.stopAnimating()
                     self.displayAlert("Login Failed", "Username/Password is incorrect")
                 }
                 return
@@ -74,6 +84,7 @@ class LoginViewController: UIViewController {
                 
                 self.username.text=""
                 self.password.text=""
+                self.activityView.stopAnimating()
                 self.performSegue(withIdentifier: "segueToTable", sender: self)
                 
                 
@@ -100,6 +111,55 @@ class LoginViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        
     }
+    
+    func subscribeToKeyboardNotifications(){
+        print("subscribing to keyboard inside subscribe func")
+//        
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
+    }
+    func unsubscribeToKeyboardNotifications(){
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    
+    func keyboardWillShow(_ notification:Notification){
+        print("\n keyboardwillShow called")
+        if (view.frame.origin.y == 0){
+            view.frame.origin.y -= getKeyboardHeight(notification)
+        }
+        
+        
+    }
+    func keyboardWillHide(_ notification:Notification){
+            
+            view.frame.origin.y=0
+        
+        
+    }
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+        print("KEYBOARD height called")
+        
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if(self.username.isFirstResponder){
+            self.username.resignFirstResponder()
+            username.backgroundColor=UIColor.clear
+        }
+        if (self.password.isFirstResponder) {
+            self.password.resignFirstResponder()
+            password.backgroundColor=UIColor.clear
+        }
+//        view.frame.origin.y=0
+        
+    }
+    
+
+
 
 }
 

@@ -83,15 +83,21 @@
                                     <constraint firstAttribute="height" constant="200" id="WBG-da-HLx"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="sgY-LI-e2l">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="sgY-LI-e2l" firstAttribute="top" secondItem="Z6P-cN-8os" secondAttribute="bottom" constant="57" id="G0B-Bh-5tb"/>
+                            <constraint firstItem="sgY-LI-e2l" firstAttribute="centerX" secondItem="Z6P-cN-8os" secondAttribute="centerX" id="PLB-0o-cFj"/>
                             <constraint firstItem="Z6P-cN-8os" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="46" id="VW5-ie-Fza"/>
                             <constraint firstItem="Z6P-cN-8os" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="tqO-UG-QnY"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Z6P-cN-8os" secondAttribute="leading" id="xvO-Fi-kR7"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityView" destination="sgY-LI-e2l" id="KIZ-7m-MCZ"/>
                         <outlet property="password" destination="nVe-VJ-u1D" id="IlD-Ck-fl5"/>
                         <outlet property="username" destination="vux-jJ-Kbh" id="fw0-Ne-1Y2"/>
                         <segue destination="tbA-X9-D2K" kind="presentation" identifier="segueToTable" id="xh1-gO-aWU"/>
