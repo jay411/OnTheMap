@@ -103,29 +103,33 @@ class PostInfoViewController: UIViewController {
                     }
                     return
                 }
-//                ParseClient.sharedInstance().postStudentLocation(mapString, self.longitudeForSubmit!, self.latitudeForSubmit!) { (success, data, error) in
-//                                guard error == nil else{
-//                                    performUIUpdatesOnMain {
-//                    
-//                    
-//                                    self.displayAlert("could not post data to parse", "\(error?.localizedDescription)")
-//                                    
-//                                    }
-//                                    return
-//                                    
-//                                }
-//
-//                
-//                print("user data:\(data)")
-//                
-//                print("here")
-//                //                print("data:\(data)")
-//            }
+                ParseClient.sharedInstance().postStudentLocation(mapString, self.longitudeForSubmit!, self.latitudeForSubmit!) { (success, data, error) in
+                                guard error == nil else{
+                                    performUIUpdatesOnMain {
+                    
+                    
+                                    self.displayAlert("could not post data to parse", "\(error?.localizedDescription)")
+                                    
+                                    }
+                                    return
+                                    
+                                }
+
+                
+                print("user data:\(data)")
+                
+                print("here")
+                //                print("data:\(data)")
+            }
         }
         
     }
         
-}
+  }
+    @IBAction func cancelPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 
@@ -227,6 +231,7 @@ extension PostInfoViewController:MKMapViewDelegate{
         let alertController=UIAlertController(title:title, message:message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Update", style: .destructive, handler: { (UIAlertAction) in
             self.update=true
+        
             ParseClient.sharedInstance().putStudentLocation(self.locationTextInput.text!, self.longitudeForSubmit!, self.latitudeForSubmit!, { (success, error) in
                 guard error == nil else{
                     performUIUpdatesOnMain {
@@ -235,7 +240,14 @@ extension PostInfoViewController:MKMapViewDelegate{
                     return
                 }
                 if success{
+
                     print("updated")
+                    performUIUpdatesOnMain {
+                        
+                        
+                        self.dismiss(animated: true, completion: nil)
+                    }
+
                 }
             })
          
@@ -267,8 +279,6 @@ extension PostInfoViewController:MKMapViewDelegate{
         }))
         self.present(alertController, animated: true, completion: nil)
     }
-  
-    
 }
 
 

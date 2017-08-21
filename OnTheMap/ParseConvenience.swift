@@ -86,7 +86,8 @@ extension ParseClient{
                 return
             }
             if success{
-                completionHandlerForPut(true,nil)
+                print("put success")
+                return completionHandlerForPut(true,nil)
             }
         }
     }

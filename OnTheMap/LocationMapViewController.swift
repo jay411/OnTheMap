@@ -19,25 +19,8 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        subscribeToKeyboardNotifications()
 //        self.studentArray = ParseClient.sharedInstance().allStudents
-        ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
-            if success{
-                print("worked")
-                //                                print("student array: \(data)")
-                self.studentArray=data! as! [StudentInfo]
-                print("parse client array:\(ParseClient.sharedInstance().allStudents.count)")
-                performUIUpdatesOnMain {
-//                    self.studentsMapView.reloadData()
-                    self.createAnnotations()
-
-                }
-                
-            }
-            else{
-                print(error.debugDescription)
-            }
-        })
+     
 
 //        self.createAnnotations()
         print("map view loaded")
@@ -48,11 +31,27 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        unsubscribeToKeyboardNotifications()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
+            if success{
+                print("worked in maps")
+                //                                print("student array: \(data)")
+                self.studentArray=data! as! [StudentInfo]
+                print("parse client array:\(ParseClient.sharedInstance().allStudents.count)")
+                performUIUpdatesOnMain {
+                    //                    self.studentsMapView.reloadData()
+                    self.createAnnotations()
+                    
+                }
+                
+            }
+            else{
+                print(error.debugDescription)
+            }
+        })
+        
     }
-    
     private func createAnnotations(){
         
         // We will create an MKPointAnnotation for each dictionary in "locations". The
@@ -130,49 +129,7 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
             }
         }
     }
-    func subscribeToKeyboardNotifications(){
-        print("subscribing to keyboard inside subscribe func")
-        
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
-    }
-    func unsubscribeToKeyboardNotifications(){
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
-    }
-    
-    
-    func keyboardWillShow(_ notification:Notification){
-        print("\n keyboardwillShow called")
-        if (view.frame.origin.y == 0){
-            view.frame.origin.y -= getKeyboardHeight(notification)
-        }
-        
-        
-    }
-    func keyboardWillHide(_ notification:Notification){
-        
-        view.frame.origin.y=0
-        
-        
-    }
-    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
-        print("KEYBOARD height called")
-        
-        let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-        return keyboardSize.cgRectValue.height
-    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        textField.resignFirstResponder()
-        textField.borderStyle=UITextBorderStyle.none
-        
-        textField.backgroundColor=UIColor.clear
-        
-        
-        return true
-    }
+
     
   
 
