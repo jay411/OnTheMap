@@ -160,7 +160,7 @@ class ParseClient{
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil { // Handle error…
-                return completionHandlerForPut(false,error)r
+                return completionHandlerForPut(false,error)
             }
             var parsedResult: AnyObject! = nil
             do {
