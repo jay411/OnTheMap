@@ -13,17 +13,6 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("tab bar view did load called")
-//        ParseClient.sharedInstance().getStudentLocation { (success, data, error) in
-//            guard error == nil else {
-//                print("\(error?.localizedDescription)")
-//                return
-//            }
-//            if success{
-////                print("data:\(data)")
-//            }
-//        }
-//        
-
                // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -42,8 +31,11 @@ class TabBarController: UITabBarController {
             print("locations tableVIew controller called")
              let storyboard = UIStoryboard (name: "Main", bundle: nil)
             let resultVC = storyboard.instantiateViewController(withIdentifier: "LocationsTableViewController") as! LocationsTableViewController
+            performUIUpdatesOnMain {
+                
             
             resultVC.tableView.reloadData()
+            }
         }
         else if self.selectedIndex == 1{
             print("Locations Mapview controller called")

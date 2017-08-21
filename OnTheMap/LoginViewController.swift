@@ -10,6 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var signUp: UIButton!
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     //https://www.udacity.com/account/auth#!/signup
@@ -131,16 +132,15 @@ class LoginViewController: UIViewController {
     
     func keyboardWillShow(_ notification:Notification){
         print("\n keyboardwillShow called")
-        if (view.frame.origin.y == 0){
-            view.frame.origin.y -= getKeyboardHeight(notification)
-        }
+        
+        
+        
         
         
     }
     func keyboardWillHide(_ notification:Notification){
-            
-            view.frame.origin.y=0
         
+        view.frame.origin.y=0
         
     }
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
@@ -152,12 +152,13 @@ class LoginViewController: UIViewController {
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if(self.username.isFirstResponder){
+            print("username field resigning")
             self.username.resignFirstResponder()
-            username.backgroundColor=UIColor.clear
         }
         if (self.password.isFirstResponder) {
+            print("password field resigning")
+
             self.password.resignFirstResponder()
-            password.backgroundColor=UIColor.clear
         }
 //        view.frame.origin.y=0
         

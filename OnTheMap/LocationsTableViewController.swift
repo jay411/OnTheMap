@@ -16,14 +16,13 @@ class LocationsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.tableView.reloadData()
 //        self.studentArray=ParseClient.sharedInstance().allStudents
         ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
             if success{
                 print("worked")
                 //                                print("student array: \(data)")
                 self.studentArray=data! as! [StudentInfo]
-                print("parse client array:\(ParseClient.sharedInstance().allStudents.count)")
+                print("parse client array:\(ParseClient.sharedInstance().allStudents[0])")
                 performUIUpdatesOnMain {
                     self.tableView.reloadData()
                 }
@@ -65,13 +64,15 @@ class LocationsTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        super.tableView(tableView, cellForRowAt: indexPath)
+        print("creating cells")
         let cell = tableView.dequeueReusableCell(withIdentifier: "locationsCell") as! LocationsTableCell
-//        let cell=tableView.dequeueReusableCell(withIdentifier: "memeTableCell") as! MemeTableCell
         let student=self.studentArray[(indexPath as NSIndexPath).row]
         if let firstName=student.firstName {
             cell.name.text=firstName
         }
         if let lastName=student.lastName {
+            cell.name.text?.append(" ")
             cell.name.text?.append(lastName)
         }
         

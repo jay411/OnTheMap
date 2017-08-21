@@ -14,6 +14,7 @@ class PostInfoViewController: UIViewController {
     @IBOutlet weak var initialStackView: UIStackView!
     @IBOutlet weak var locationTextInput: UITextField!
     @IBOutlet weak var findOnMap: UIButton!
+    var update:Bool?
     
     
     @IBOutlet weak var secondStackView: UIStackView!
@@ -28,8 +29,13 @@ class PostInfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        subscribeToKeyboardNotifications()
 
         // Do any additional setup after loading the view.
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeToKeyboardNotifications()
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,54 +90,44 @@ class PostInfoViewController: UIViewController {
             print("could not create mapstring")
             return
         }
-        ParseClient.sharedInstance().postStudentLocation(mapString, longitudeForSubmit!, latitudeForSubmit!) { (success, data, error) in
-            guard error == nil else{
-                performUIUpdatesOnMain {
-                    
-                
-                self.displayAlert("could not post data to parse", "\(error?.localizedDescription)")
-                
-                }
-                return
-                
-            }
-            if success{
-                print("data posted")
-//                ParseClient.sharedInstance().getStudentLocation({ (success, data, error) in
-//                    guard error == nil else{
-//                        performUIUpdatesOnMain {
-//                            self.displayAlert("couldnt get user data", "\(error?.localizedDescription)")
-//                        }
-//                        return
-//                    }
-//                    if success{
-//                        guard data != nil else{
-//                            print("data is nil")
-//                            return
-//                        }
-//                    }
-//                })
-                
-            
-            }
-        }
+
         ParseClient.sharedInstance().getStudentLocation { (success, data, error) in
             guard error == nil else {
                 print("\(error?.localizedDescription)")
                 return
             }
             if success{
-                print("user data:\(data)")
-                performUIUpdatesOnMain {
-                    self.dismiss(animated: true, completion: nil)
-
+                guard (data == nil) else{
+                    performUIUpdatesOnMain {
+                        self.updateMessage("Location Found", "Would you like to update your existing location")
+                    }
+                    return
                 }
-                //                print("data:\(data)")
-            }
+//                ParseClient.sharedInstance().postStudentLocation(mapString, self.longitudeForSubmit!, self.latitudeForSubmit!) { (success, data, error) in
+//                                guard error == nil else{
+//                                    performUIUpdatesOnMain {
+//                    
+//                    
+//                                    self.displayAlert("could not post data to parse", "\(error?.localizedDescription)")
+//                                    
+//                                    }
+//                                    return
+//                                    
+//                                }
+//
+//                
+//                print("user data:\(data)")
+//                
+//                print("here")
+//                //                print("data:\(data)")
+//            }
         }
         
     }
+        
 }
+}
+
 
 
 
@@ -169,6 +165,107 @@ extension PostInfoViewController:MKMapViewDelegate{
         }
         
         return pinView
+    }
+    
+    func subscribeToKeyboardNotifications(){
+        print("subscribing to keyboard inside subscribe func")
+        //
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
+    }
+    func unsubscribeToKeyboardNotifications(){
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    
+    func keyboardWillShow(_ notification:Notification){
+        print("\n keyboardwillShow called")
+        if ( self.locationTextInput.isFirstResponder){
+//            self.initialStackView.frame.origin.y-=getKeyboardHeight(notification)
+//            self.locationTextInput.frame.origin.y -= getKeyboardHeight(notification)
+            if view.frame.origin.y == 0 {
+                
+//            view.frame.origin.y -= getKeyboardHeight(notification)
+//                self.locationTextInput.frame.origin.y -= getKeyboardHeight(notification)
+//                self.findOnMap.frame.origin.y -= getKeyboardHeight(notification)
+            }
+        }
+        
+        
+    }
+    func keyboardWillHide(_ notification:Notification){
+//        self.locationTextInput.frame.origin.y += getKeyboardHeight(notification)
+//        self.findOnMap.frame.origin.y += getKeyboardHeight(notification)
+
+
+        
+        
+        view.frame.origin.y=0
+        
+        
+    }
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+        print("KEYBOARD height called")
+        
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if(self.locationTextInput.isFirstResponder){
+            self.locationTextInput.resignFirstResponder()
+        }
+        if (self.mediaURL.isFirstResponder) {
+            self.mediaURL.resignFirstResponder()
+        }
+                view.frame.origin.y=0
+        
+    }
+    func updateMessage(_ title:String,_ message:String){
+        
+        let alertController=UIAlertController(title:title, message:message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Update", style: .destructive, handler: { (UIAlertAction) in
+            self.update=true
+            ParseClient.sharedInstance().putStudentLocation(self.locationTextInput.text!, self.longitudeForSubmit!, self.latitudeForSubmit!, { (success, error) in
+                guard error == nil else{
+                    performUIUpdatesOnMain {
+                        self.displayAlert("could not update data", "\(error?.localizedDescription)")
+                    }
+                    return
+                }
+                if success{
+                    print("updated")
+                }
+            })
+         
+        }))
+        alertController.addAction(UIAlertAction(title: "No", style: .default, handler: { (UIAlertAction) in
+            self.update=false
+            ParseClient.sharedInstance().postStudentLocation(self.locationTextInput.text!, self.longitudeForSubmit!, self.latitudeForSubmit!) { (success, data, error) in
+                guard error == nil else{
+                    performUIUpdatesOnMain {
+                        
+                        
+                        self.displayAlert("could not post data to parse", "\(error?.localizedDescription)")
+                        
+                    }
+                    return
+                    
+                }
+                
+                
+//                print("user data:\(data)")
+                
+                print("here")
+                performUIUpdatesOnMain {
+                    
+                
+                self.dismiss(animated: true, completion: nil)
+                }
+            }
+        }))
+        self.present(alertController, animated: true, completion: nil)
     }
   
     

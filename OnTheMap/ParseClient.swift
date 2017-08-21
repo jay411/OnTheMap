@@ -88,27 +88,37 @@ class ParseClient{
                 print("Error")
                 
             }
-//                        print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
 
             guard let replyDictionary = parsedResult[ParseClient.ResponseKeys.Results] as? [[String:AnyObject]] else{
                 print("couldnt create response dictionary")
                 return
             }
-            print("\r\r\r\rreply:\(replyDictionary)")
+            if replyDictionary.count == 0 {
+                return completionHandlerForALocation(true, nil, nil)
+
+            }
+            let item = replyDictionary[0]
             
-            completionHandlerForALocation(true, replyDictionary as AnyObject, nil)
+            UserData.sharedInstance().userData.objectID=item[ParseClient.ResponseKeys.ObjectID] as! String
+
+            
+            
+            completionHandlerForALocation(true, replyDictionary[0] as AnyObject, nil)
         
     }
         task.resume()
     }
     
     func taskForPostToParse(_ parameters:[String:AnyObject],_ completionHandlerForPost:@escaping(_ success:Bool,_ data:AnyObject?,_ error:Error?)->Void){
-        let urlParameters=parameters
-        let request = NSMutableURLRequest(url: parseURLFromParameters(urlParameters, withPathExtension: ParseClient.Methods.method))
+       
+        let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+
         request.httpMethod = "POST"
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        request.httpBody = "{\"uniqueKey\": \"\(parameters[ParseClient.RequestKeys.UniqueKey]!)\", \"firstName\": \"\(parameters[ParseClient.RequestKeys.FirstName] ?? "First Name" as AnyObject)\", \"lastName\": \"\(parameters[ParseClient.RequestKeys.LastName] ?? "LastName" as AnyObject)\",\"mapString\": \"\(parameters[ParseClient.RequestKeys.MapString] ?? "Mountain View" as AnyObject)\", \"mediaURL\": \"\(parameters[ParseClient.RequestKeys.MediaURL] ?? "udacity.com" as AnyObject)\",\"latitude\": \(parameters[ParseClient.RequestKeys.Latitude] ?? 0.0 as AnyObject), \"longitude\": \(parameters[ParseClient.ResponseKeys.Longitude] ?? 0.0 as AnyObject)}".data(using: String.Encoding.utf8)
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil { // Handle error...
@@ -127,7 +137,8 @@ class ParseClient{
                 print("could not post and retrive object ID")
                 return
             }
-            print("Object ID after posting: \(objectID)")
+            print("Object ID after posting: \(String(describing: objectID))")
+            UserData.sharedInstance().userData.objectID=objectID as? String
             completionHandlerForPost(true, objectID as AnyObject,nil)
         }
         task.resume()
@@ -136,7 +147,33 @@ class ParseClient{
     }
     
     
-    func taskForPut(_ parameters:[String:AnyObject],_ completionHandlerForPost:@escaping(_ success:Bool,_ data:AnyObject?,_ error:Error?)->Void){
+    func taskForPut(_ parameters:[String:AnyObject],_ completionHandlerForPut:@escaping(_ success:Bool,_ error:Error?)->Void){
+        let urlString = "https://parse.udacity.com/parse/classes/StudentLocation/\(UserData.sharedInstance().userData.objectID!)"
+        let url = URL(string: urlString)
+        let request = NSMutableURLRequest(url: url!)
+        request.httpMethod = "PUT"
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = "{\"uniqueKey\": \"\(parameters[ParseClient.RequestKeys.UniqueKey]!)\", \"firstName\": \"\(parameters[ParseClient.RequestKeys.FirstName] ?? "First Name" as AnyObject)\", \"lastName\": \"\(parameters[ParseClient.RequestKeys.LastName] ?? "LastName" as AnyObject)\",\"mapString\": \"\(parameters[ParseClient.RequestKeys.MapString] ?? "Mountain View" as AnyObject)\", \"mediaURL\": \"\(parameters[ParseClient.RequestKeys.MediaURL] ?? "udacity.com" as AnyObject)\",\"latitude\": \(parameters[ParseClient.RequestKeys.Latitude] ?? 0.0 as AnyObject), \"longitude\": \(parameters[ParseClient.ResponseKeys.Longitude] ?? 0.0 as AnyObject)}".data(using: String.Encoding.utf8)
+
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest) { data, response, error in
+            if error != nil { // Handle error…
+                return
+            }
+            var parsedResult: AnyObject! = nil
+            do {
+                parsedResult = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as AnyObject
+                
+            }catch{
+                print("Error")
+                
+            }
+            
+            
+        }
+        task.resume()
         
     }
     
