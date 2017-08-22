@@ -73,7 +73,7 @@ class SubmitLocationViewController: UIViewController {
             guard error == nil else {
                 print("\(error!.localizedDescription)")
                 performUIUpdatesOnMain {
-                    self.displayAlert("Could not download student location", "\(error!.localizedDescription)")
+                    self.displayAlert("cannot post user location", "\(error!.localizedDescription)")
                 }
                 return
             }
