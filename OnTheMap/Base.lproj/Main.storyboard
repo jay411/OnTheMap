@@ -24,15 +24,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uSa-1h-eds">
-                                <rect key="frame" x="10" y="64" width="394" height="623"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="uSa-1h-eds" firstAttribute="centerX" secondItem="IBL-ed-EbO" secondAttribute="centerX" id="2T6-Cm-EBb"/>
-                            <constraint firstItem="uSa-1h-eds" firstAttribute="bottom" secondItem="x7k-cq-1pn" secondAttribute="top" id="SOn-YV-XjX"/>
-                            <constraint firstItem="uSa-1h-eds" firstAttribute="top" secondItem="yqH-bx-EHG" secondAttribute="bottom" id="cz9-Ve-91n"/>
-                            <constraint firstItem="uSa-1h-eds" firstAttribute="leading" secondItem="IBL-ed-EbO" secondAttribute="leadingMargin" constant="-10" id="gaS-m2-JXQ"/>
+                            <constraint firstItem="uSa-1h-eds" firstAttribute="leading" secondItem="IBL-ed-EbO" secondAttribute="leading" id="0Zv-wp-HcL"/>
+                            <constraint firstItem="uSa-1h-eds" firstAttribute="centerX" secondItem="IBL-ed-EbO" secondAttribute="centerX" id="624-6X-YFH"/>
+                            <constraint firstItem="uSa-1h-eds" firstAttribute="top" secondItem="yqH-bx-EHG" secondAttribute="bottom" id="Ppz-kC-EEI"/>
+                            <constraint firstItem="uSa-1h-eds" firstAttribute="bottom" secondItem="x7k-cq-1pn" secondAttribute="top" id="fS6-Lj-nW3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dGO-kp-uEs"/>
@@ -42,7 +42,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9eV-t3-mNn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4196" y="787.55622188905556"/>
+            <point key="canvasLocation" x="4195.652173913044" y="787.50000000000011"/>
         </scene>
         <!--LoginViewController-->
         <scene sceneID="tne-QT-ifu">
@@ -246,7 +246,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="2yE-u7-6AW"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Find On Map"/>
                                         <connections>
                                             <action selector="findClicked:" destination="aIB-GJ-VZ0" eventType="touchUpInside" id="K8Z-bY-aSM"/>
                                         </connections>
@@ -290,7 +290,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gea-WY-g7I">
+                            <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gea-WY-g7I">
                                 <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4D9-zE-xbF">
