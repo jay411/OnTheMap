@@ -22,7 +22,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.activityView.hidesWhenStopped=true
 
-        subscribeToKeyboardNotifications()
 
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -34,7 +33,6 @@ class LoginViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        unsubscribeToKeyboardNotifications()
     }
     @IBAction func signUpPressed(_ sender: Any) {
         
@@ -118,39 +116,7 @@ class LoginViewController: UIViewController {
 //        
     }
     
-    func subscribeToKeyboardNotifications(){
-        print("subscribing to keyboard inside subscribe func")
-//        
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
-    }
-    func unsubscribeToKeyboardNotifications(){
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
-    }
-    
-    
-    func keyboardWillShow(_ notification:Notification){
-        print("\n keyboardwillShow called")
-        
-        
-        
-        
-        
-    }
-    func keyboardWillHide(_ notification:Notification){
-        
-        view.frame.origin.y=0
-        
-    }
-    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
-        print("KEYBOARD height called")
-        
-        let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-        return keyboardSize.cgRectValue.height
-    }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if(self.username.isFirstResponder){
             print("username field resigning")
             self.username.resignFirstResponder()
