@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var signUp: UIButton!
     @IBOutlet weak var username: UITextField!
@@ -22,7 +22,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.activityView.hidesWhenStopped=true
 
-
+        username.delegate=self
+        password.delegate=self
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -130,6 +131,10 @@ class LoginViewController: UIViewController {
         
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
 
 
 

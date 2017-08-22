@@ -43,7 +43,7 @@ class UdacityClient{
                     completionHandlerForPost(false,nil, NSError(domain: "taskForPostUdacity", code: 1, userInfo: userInfo))
                 }
                 guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                    sendError(error: "Your request returned \(String(describing: (response as? HTTPURLResponse)?.statusCode))!")
+                    sendError(error: "Your request returned \((response as? HTTPURLResponse)!.statusCode)!")
                     return
                 }
 
