@@ -17,7 +17,7 @@ extension UdacityClient {
         // prep for Udacity taskForPostUdacity
         self.taskForPostUdacity(email, password: password){  success,data,error in
             guard error == nil else {
-                completionHandlerForAuthenticate(false,error?.localizedDescription)
+                completionHandlerForAuthenticate(false,error!.localizedDescription)
                 return
             }
             if success{

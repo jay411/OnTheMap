@@ -65,7 +65,7 @@ class LoginViewController: UIViewController {
                     self.username.text=""
                     self.password.text=""
                     self.activityView.stopAnimating()
-                    self.displayAlert("Login Failed", "Username/Password is incorrect")
+                    self.displayAlert("Login Failed", "\(String(describing: error))")
                 }
                 return
             }

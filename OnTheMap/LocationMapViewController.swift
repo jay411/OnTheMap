@@ -20,7 +20,7 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.studentArray = ParseClient.sharedInstance().allStudents
-     
+        studentsMapView.delegate=self
 
 //        self.createAnnotations()
         print("map view loaded")
