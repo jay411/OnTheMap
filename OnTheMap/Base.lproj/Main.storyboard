@@ -314,6 +314,9 @@
                                     <action selector="submitLocation:" destination="rLo-Tl-8rD" eventType="touchUpInside" id="Rix-xk-vhx"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="txt-Lb-Vrd">
+                                <rect key="frame" x="197" y="358" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -321,12 +324,15 @@
                             <constraint firstItem="gea-WY-g7I" firstAttribute="top" secondItem="r6m-Uq-9hi" secondAttribute="bottom" id="J8K-9a-Hou"/>
                             <constraint firstItem="4D9-zE-xbF" firstAttribute="centerX" secondItem="e9E-KQ-gTA" secondAttribute="centerX" id="PLU-Ez-LaR"/>
                             <constraint firstItem="gea-WY-g7I" firstAttribute="centerX" secondItem="4D9-zE-xbF" secondAttribute="centerX" id="WCc-Uy-grb"/>
+                            <constraint firstItem="txt-Lb-Vrd" firstAttribute="centerX" secondItem="e9E-KQ-gTA" secondAttribute="centerX" id="ZEv-q9-bpA"/>
                             <constraint firstItem="gea-WY-g7I" firstAttribute="leading" secondItem="e9E-KQ-gTA" secondAttribute="leading" id="ahB-vy-LXQ"/>
+                            <constraint firstItem="txt-Lb-Vrd" firstAttribute="centerY" secondItem="e9E-KQ-gTA" secondAttribute="centerY" id="gt8-AT-ej9"/>
                             <constraint firstItem="5fL-y7-90Y" firstAttribute="top" secondItem="gea-WY-g7I" secondAttribute="bottom" id="mCJ-Ug-tsW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rMm-ht-gem"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="txt-Lb-Vrd" id="NcY-pn-oHw"/>
                         <outlet property="locationMapView" destination="gea-WY-g7I" id="jya-Zi-Mqz"/>
                         <outlet property="submitButton" destination="4D9-zE-xbF" id="Dcp-P8-0kI"/>
                     </connections>
@@ -415,7 +421,6 @@
         <!--PostNavigationController-->
         <scene sceneID="dcK-5C-8H4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="R7x-dL-d0K" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="PostNavigationController" title="PostNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6Cw-tN-ySS" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nx9-rs-MpS">
@@ -427,6 +432,7 @@
                         <segue destination="aIB-GJ-VZ0" kind="relationship" relationship="rootViewController" id="aqo-kG-kfU"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R7x-dL-d0K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3466.666666666667" y="-1358.1521739130435"/>
         </scene>

@@ -19,8 +19,11 @@ class SubmitLocationViewController: UIViewController {
     var userURL:String?
     @IBOutlet weak var submitButton: UIButton!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.activityIndicator.hidesWhenStopped=true
+        self.activityIndicator.isHidden=true
         self.forwardGecode(self.locationString!) { (success, location, error) in
             guard  error == nil else{
                 print(error.debugDescription)
@@ -41,7 +44,7 @@ class SubmitLocationViewController: UIViewController {
                 
                 performUIUpdatesOnMain {
                     self.locationMapView.isHidden=false
-                    
+                    self.activityIndicator.stopAnimating()
                     self.locationMapView.showAnnotations(self.locationMapView.annotations, animated: true)
                 }
             }
@@ -52,6 +55,7 @@ class SubmitLocationViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.activityIndicator.startAnimating()
         
 
     }
