@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		930CFAEE1F4BDD470001350E /* SubmitLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930CFAED1F4BDD470001350E /* SubmitLocationViewController.swift */; };
 		9333DFE41F3D7D86003B7374 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333DFE31F3D7D86003B7374 /* AppDelegate.swift */; };
 		9333DFE61F3D7D86003B7374 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333DFE51F3D7D86003B7374 /* LoginViewController.swift */; };
 		9333DFE91F3D7D86003B7374 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9333DFE71F3D7D86003B7374 /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		930CFAED1F4BDD470001350E /* SubmitLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitLocationViewController.swift; sourceTree = "<group>"; };
 		9333DFE01F3D7D86003B7374 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9333DFE31F3D7D86003B7374 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9333DFE51F3D7D86003B7374 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				9333DFE31F3D7D86003B7374 /* AppDelegate.swift */,
 				9333DFE51F3D7D86003B7374 /* LoginViewController.swift */,
 				9333DFE71F3D7D86003B7374 /* Main.storyboard */,
+				930CFAED1F4BDD470001350E /* SubmitLocationViewController.swift */,
 				9333DFEA1F3D7D86003B7374 /* Assets.xcassets */,
 				9333DFEC1F3D7D86003B7374 /* LaunchScreen.storyboard */,
 				9333DFEF1F3D7D86003B7374 /* Info.plist */,
@@ -346,6 +349,7 @@
 				9333E0121F3D7E3C003B7374 /* GCDBlackBox.swift in Sources */,
 				934220731F42EB6C0079F7EE /* PostInfoViewController.swift in Sources */,
 				934220711F411A5E0079F7EE /* Students.swift in Sources */,
+				930CFAEE1F4BDD470001350E /* SubmitLocationViewController.swift in Sources */,
 				934220631F405FA40079F7EE /* UserData.swift in Sources */,
 				9333E0191F3D9363003B7374 /* LocationMapViewController.swift in Sources */,
 				9333E0171F3D8A5C003B7374 /* UdacityClient.swift in Sources */,
