@@ -71,7 +71,10 @@ class SubmitLocationViewController: UIViewController {
         
         ParseClient.sharedInstance().getStudentLocation { (success, data, error) in
             guard error == nil else {
-                print("\(error?.localizedDescription)")
+                print("\(error!.localizedDescription)")
+                performUIUpdatesOnMain {
+                    self.displayAlert("Could not download student location", "\(error!.localizedDescription)")
+                }
                 return
             }
             if success{
@@ -86,7 +89,7 @@ class SubmitLocationViewController: UIViewController {
                         performUIUpdatesOnMain {
                             
                             
-                            self.displayAlert("could not post data to parse", "\(error?.localizedDescription)")
+                            self.displayAlert("could not post data to parse", "\(error!.localizedDescription)")
                             
                         }
                         return
@@ -111,7 +114,7 @@ class SubmitLocationViewController: UIViewController {
                 ParseClient.sharedInstance().putStudentLocation(self.locationString!, self.longitudeForSubmit!, self.latitudeForSubmit!,self.userURL, { (success, error) in
                     guard error == nil else{
                         performUIUpdatesOnMain {
-                            self.displayAlert("could not update data", "\(error?.localizedDescription)")
+                            self.displayAlert("could not update data", "\(error!.localizedDescription)")
                         }
                         return
                     }
@@ -137,7 +140,7 @@ class SubmitLocationViewController: UIViewController {
                         performUIUpdatesOnMain {
                             
                             
-                            self.displayAlert("could not post data to parse", "\(error?.localizedDescription)")
+                            self.displayAlert("could not post data to parse", "\(error!.localizedDescription)")
                             
                         }
                         return
