@@ -80,7 +80,7 @@ extension ParseClient{
         var queryItems=[String:AnyObject]()
 
         queryItems=[ParseClient.RequestKeys.UniqueKey:UserData.sharedInstance().userData.userID as AnyObject,ParseClient.RequestKeys.FirstName:UserData.sharedInstance().userData.firstName as AnyObject, ParseClient.RequestKeys.LastName:UserData.sharedInstance().userData.lastName as AnyObject,ParseClient.RequestKeys.MapString:mapString as AnyObject,ParseClient.RequestKeys.Longitude:longitude as AnyObject,ParseClient.RequestKeys.Latitude:latitude as AnyObject,ParseClient.RequestKeys.MediaURL:url as AnyObject]
-
+        
         self.taskForPut(queryItems) { (success, error) in
             guard error == nil else{
                 completionHandlerForPut(false, error)

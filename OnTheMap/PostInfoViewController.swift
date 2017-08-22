@@ -48,9 +48,14 @@ class PostInfoViewController: UIViewController,UITextFieldDelegate {
             }
             return
         }
+        guard verifyUrl(urlString: self.mediaURL.text!) else{
+            performUIUpdatesOnMain {
+                self.displayAlert("invalid URL", "please enter a valid url (https://...)")
+            }
+            return
+        }
         
         performUIUpdatesOnMain {
-//            self.present(submitVC, animated: true, completion: nil)
             self.performSegue(withIdentifier: "addLocation", sender: self)
         }
         
@@ -63,50 +68,7 @@ class PostInfoViewController: UIViewController,UITextFieldDelegate {
 
         
 
-    
 
-//    @IBAction func submitLocation(_ sender: Any) {
-//        print("submit pressed")
-//        guard let mapString = self.locationTextInput.text else{
-//            print("could not create mapstring")
-//            return
-//        }
-//
-//        ParseClient.sharedInstance().getStudentLocation { (success, data, error) in
-//            guard error == nil else {
-//                print("\(error?.localizedDescription)")
-//                return
-//            }
-//            if success{
-//                guard (data == nil) else{
-//                    performUIUpdatesOnMain {
-//                        self.updateMessage("Location Found", "Would you like to update your existing location")
-//                    }
-//                    return
-//                }
-//                ParseClient.sharedInstance().postStudentLocation(mapString, self.longitudeForSubmit!, self.latitudeForSubmit!) { (success, data, error) in
-//                                guard error == nil else{
-//                                    performUIUpdatesOnMain {
-//                    
-//                    
-//                                    self.displayAlert("could not post data to parse", "\(error?.localizedDescription)")
-//                                    
-//                                    }
-//                                    return
-//                                    
-//                                }
-//
-//                
-//                print("user data:\(data)")
-//                
-//                print("here")
-//                //                print("data:\(data)")
-//            }
-//        }
-//        
-//    }
-//        
-//  }
     @IBAction func cancelPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -117,12 +79,13 @@ class PostInfoViewController: UIViewController,UITextFieldDelegate {
       
         print("segue called")
     }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.tag == 1{
-            if (textField.text)! == ""{
-            return }
-            textField.text="https://"+textField.text!
-        }
+    
+    func verifyUrl (urlString: String?) -> Bool {
+    if let url  = NSURL(string: urlString!) {
+    return UIApplication.shared.canOpenURL(url as URL)
+    }
+    
+    return false
     }
 }
 
