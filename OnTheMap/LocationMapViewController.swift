@@ -12,7 +12,6 @@ import MapKit
 
 class LocationMapViewController: UIViewController,MKMapViewDelegate {
     let object = UIApplication.shared.delegate
-    var studentArray=[StudentInfo]()
 
 
     @IBOutlet weak var studentsMapView: MKMapView!
@@ -33,12 +32,11 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
+        ParseClient.sharedInstance().getAllLocations(false, { (success, error) in
             if success{
                 print("worked in maps")
                 //                                print("student array: \(data)")
-                self.studentArray=data! as! [StudentInfo]
-                print("parse client array:\(ParseClient.sharedInstance().allStudents.count)")
+
                 performUIUpdatesOnMain {
                     //                    self.studentsMapView.reloadData()
                     self.createAnnotations()
@@ -62,7 +60,7 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
         // to create map annotations. This would be more stylish if the dictionaries were being
         // used to create custom structs. Perhaps StudentLocation structs.
         
-        for student in self.studentArray {
+        for student in Students.sharedInstance().studentArray {
             
             // Notice that the float values are being used to create CLLocationDegree values.
             // This is a version of the Double type.

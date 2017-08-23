@@ -11,7 +11,6 @@ import CoreLocation
 
 class LocationsTableViewController: UITableViewController {
 
-    var studentArray=[StudentInfo]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +24,10 @@ class LocationsTableViewController: UITableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ParseClient.sharedInstance().getAllLocations(false, { (success,data, error) in
+        ParseClient.sharedInstance().getAllLocations(false, { (success, error) in
             if success{
                 print("worked")
                 //                                print("student array: \(data)")
-                self.studentArray=data! as! [StudentInfo]
-                print("parse client array:\(ParseClient.sharedInstance().allStudents[0])")
                 performUIUpdatesOnMain {
                     self.tableView.reloadData()
                 }
@@ -57,8 +54,7 @@ class LocationsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        print("\n number of cells: \(ParseClient.sharedInstance().allStudents.count)")
-        return ParseClient.sharedInstance().allStudents.count
+        return Students.sharedInstance().studentArray.count
 
 //        return self.studentArray.count
     }
@@ -68,7 +64,7 @@ class LocationsTableViewController: UITableViewController {
         super.tableView(tableView, cellForRowAt: indexPath)
         print("creating cells")
         let cell = tableView.dequeueReusableCell(withIdentifier: "locationsCell") as! LocationsTableCell
-        let student=self.studentArray[(indexPath as NSIndexPath).row]
+        let student=Students.sharedInstance().studentArray[(indexPath as NSIndexPath).row]
         if let firstName=student.firstName {
             cell.name.text=firstName
         }
@@ -92,7 +88,7 @@ class LocationsTableViewController: UITableViewController {
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let url=self.studentArray[(indexPath as NSIndexPath).row].mediaURL else{
+        guard let url=Students.sharedInstance().studentArray[(indexPath as NSIndexPath).row].mediaURL else{
             return
         }
         if NSURL(string: url) != nil {

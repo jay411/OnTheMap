@@ -11,7 +11,7 @@ import Foundation
 import CoreLocation
 extension ParseClient{
     
-    func getAllLocations(_ latest:Bool,_ completionHandlerForGetAll: @escaping(_ success:Bool,_ data:AnyObject?, _ error:Error?)->Void){
+    func getAllLocations(_ latest:Bool,_ completionHandlerForGetAll: @escaping(_ success:Bool, _ error:Error?)->Void){
         var queryItems=[String:AnyObject]()
         if latest == true{
             queryItems=[ParameterKeys.Order:"-updatedAt" as AnyObject,ParameterKeys.Limit:100 as AnyObject]
@@ -19,14 +19,14 @@ extension ParseClient{
         else{
             queryItems=[ParameterKeys.Limit:"100" as AnyObject]
         }
-        self.taskForGettingAllLocations(queryItems){ success,data,error in
+        self.taskForGettingAllLocations(queryItems){ success,error in
             if success{
                 print("/n/n/n/nGot it")
                 
-                completionHandlerForGetAll(true,data,nil)
+                completionHandlerForGetAll(true,nil)
             }
             else{
-                completionHandlerForGetAll(false,nil,error)
+                completionHandlerForGetAll(false,error)
             }
             
             

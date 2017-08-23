@@ -11,14 +11,13 @@ import CoreLocation
 
 class ParseClient{
     
-    var allStudents=[StudentInfo]()
+//    var allStudents=[StudentInfo]()
     var objectID:String?
     
-    func taskForGettingAllLocations(_ parameters:[String:AnyObject], _ completionHandlerForAllLocations: @escaping(_ success:Bool,_ data:AnyObject?,_ error:Error?)->Void){
+    func taskForGettingAllLocations(_ parameters:[String:AnyObject], _ completionHandlerForAllLocations: @escaping(_ success:Bool,_ error:Error?)->Void){
         
            let urlParameters=parameters
            let request = NSMutableURLRequest(url: parseURLFromParameters(urlParameters, withPathExtension: ParseClient.Methods.method))
-            allStudents = []
     
         
        
@@ -44,10 +43,11 @@ class ParseClient{
                 }
                 for item in replyDictionary {
 //                    print("\n item:\(item)")
-                    let student=StudentInfo(firstName: item[ParseClient.ResponseKeys.FirstName] as? String, lastName: item[ParseClient.ResponseKeys.LastName] as? String, longitude: item[ParseClient.ResponseKeys.Longitude] as? CLLocationDegrees, latitude: item[ParseClient.ResponseKeys.Latitude] as? CLLocationDegrees, mediaURL: item[ParseClient.ResponseKeys.MediaURL] as? String, location: item[ParseClient.ResponseKeys.MapString] as? String,objectID: item[ParseClient.ResponseKeys.ObjectId] as! String)
-                    self.allStudents.append(student)
+                    let student=StudentInfo(value: item)
+                    Students.sharedInstance().studentArray.append(student)
                 }
-                completionHandlerForAllLocations(true, self.allStudents as AnyObject, nil)
+                print("student model array count: \(Students.sharedInstance().studentArray.count)")
+                completionHandlerForAllLocations(true, nil)
                 
         }
         task.resume()
