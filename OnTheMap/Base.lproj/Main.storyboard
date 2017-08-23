@@ -24,15 +24,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uSa-1h-eds">
-                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
+                                <rect key="frame" x="0.0" y="49" width="414" height="638"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="uSa-1h-eds" firstAttribute="leading" secondItem="IBL-ed-EbO" secondAttribute="leading" id="0Zv-wp-HcL"/>
+                            <constraint firstItem="uSa-1h-eds" firstAttribute="centerY" secondItem="IBL-ed-EbO" secondAttribute="centerY" id="2zr-eI-SUE"/>
                             <constraint firstItem="uSa-1h-eds" firstAttribute="centerX" secondItem="IBL-ed-EbO" secondAttribute="centerX" id="624-6X-YFH"/>
-                            <constraint firstItem="uSa-1h-eds" firstAttribute="top" secondItem="yqH-bx-EHG" secondAttribute="bottom" id="DG3-KC-8A7"/>
-                            <constraint firstItem="uSa-1h-eds" firstAttribute="bottom" secondItem="x7k-cq-1pn" secondAttribute="top" id="fS6-Lj-nW3"/>
+                            <constraint firstItem="x7k-cq-1pn" firstAttribute="top" secondItem="uSa-1h-eds" secondAttribute="bottom" id="PCC-by-g1Z"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dGO-kp-uEs"/>

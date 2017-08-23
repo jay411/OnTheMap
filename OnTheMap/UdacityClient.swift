@@ -43,6 +43,11 @@ class UdacityClient{
                     completionHandlerForPost(false,nil, NSError(domain: "taskForPostUdacity", code: 1, userInfo: userInfo))
                 }
                 guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                    if (response as? HTTPURLResponse)!.statusCode == 403 {
+                        sendError(error: "invalid credentials")
+                        return
+                    }
+                    
                     sendError(error: "Your request returned \((response as? HTTPURLResponse)!.statusCode)!")
                     return
                 }
