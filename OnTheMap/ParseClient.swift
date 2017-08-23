@@ -11,13 +11,14 @@ import CoreLocation
 
 class ParseClient{
     
-//    var allStudents=[StudentInfo]()
     var objectID:String?
     
     func taskForGettingAllLocations(_ parameters:[String:AnyObject], _ completionHandlerForAllLocations: @escaping(_ success:Bool,_ error:Error?)->Void){
         
            let urlParameters=parameters
            let request = NSMutableURLRequest(url: parseURLFromParameters(urlParameters, withPathExtension: ParseClient.Methods.method))
+            var allStudents=[StudentInfo]()
+
     
         
        
@@ -26,7 +27,7 @@ class ParseClient{
             let session = URLSession.shared
             let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil { // Handle error...
-                return
+                return completionHandlerForAllLocations(false,error)
             }
 //            print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
                 var parsedResult: AnyObject! = nil
@@ -44,8 +45,9 @@ class ParseClient{
                 for item in replyDictionary {
 //                    print("\n item:\(item)")
                     let student=StudentInfo(value: item)
-                    Students.sharedInstance().studentArray.append(student)
+                    allStudents.append(student)
                 }
+                Students.sharedInstance().studentArray=allStudents
                 print("student model array count: \(Students.sharedInstance().studentArray.count)")
                 completionHandlerForAllLocations(true, nil)
                 
@@ -122,7 +124,7 @@ class ParseClient{
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil { // Handle error...
-                return
+                return completionHandlerForPost(false,nil,error)
             }
             //            print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
             var parsedResult: AnyObject! = nil

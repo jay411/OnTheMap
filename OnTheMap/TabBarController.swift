@@ -26,31 +26,43 @@ class TabBarController: UITabBarController {
     }
 
     @IBAction func refresh(_ sender: Any) {
-        
-        if self.selectedIndex == 0{
-            print("locations tableVIew controller called")
-             let storyboard = UIStoryboard (name: "Main", bundle: nil)
-            let resultVC = storyboard.instantiateViewController(withIdentifier: "LocationsTableViewController") as! LocationsTableViewController
-            performUIUpdatesOnMain {
+                //
+            
+                            if self.selectedIndex == 0{
+                        print("locations tableVIew controller called")
+                        let storyboard = UIStoryboard (name: "Main", bundle: nil)
+                        let resultVC = storyboard.instantiateViewController(withIdentifier: "LocationsTableViewController") as! LocationsTableViewController
+                        performUIUpdatesOnMain {
+                            
+                            
+                            resultVC.viewWillAppear(true)
+                        }
+                    }
+                    else if self.selectedIndex == 1{
+                        print("Locations Mapview controller called")
+                        let storyboard = UIStoryboard (name: "Main", bundle: nil)
+                        let resultVC = storyboard.instantiateViewController(withIdentifier: "LocationMapViewController") as! LocationMapViewController
+                        
+                        performUIUpdatesOnMain {
+                            
+                            
+                            resultVC.viewWillAppear(true)
+                        }
+                        
+                        
+                    }
                 
-            
-            resultVC.tableView.reloadData()
-            }
-        }
-        else if self.selectedIndex == 1{
-            print("Locations Mapview controller called")
-            let storyboard = UIStoryboard (name: "Main", bundle: nil)
-            let resultVC = storyboard.instantiateViewController(withIdentifier: "LocationMapViewController") as! LocationMapViewController
-            
-            performUIUpdatesOnMain {
                 
-            
-            resultVC.view.reloadInputViews()
             }
+    
 
-            
-        }
-    }
+
+    
+    
+
+    
+
+    
     @IBAction func logout(_ sender: Any) {
         UdacityClient.sharedInstance().logout { (success) in
             if success{
@@ -80,5 +92,5 @@ class TabBarController: UITabBarController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

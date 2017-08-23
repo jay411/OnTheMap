@@ -15,6 +15,8 @@ class LocationsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate=self
+        print("view did load called")
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -26,7 +28,7 @@ class LocationsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         ParseClient.sharedInstance().getAllLocations(false, { (success, error) in
             if success{
-                print("worked")
+                print("worked view will appear in table")
                 //                                print("student array: \(data)")
                 performUIUpdatesOnMain {
                     self.tableView.reloadData()
@@ -34,12 +36,12 @@ class LocationsTableViewController: UITableViewController {
                 
             }
             else{
-                print(error.debugDescription)
+                self.displayAlert("error loading data", "\(error!.localizedDescription)")
             }
         })
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

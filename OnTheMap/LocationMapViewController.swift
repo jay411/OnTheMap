@@ -33,6 +33,11 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         ParseClient.sharedInstance().getAllLocations(false, { (success, error) in
+            guard error == nil else{
+                    self.displayAlert("error loading data", "\(error!.localizedDescription)")
+                return
+                
+            }
             if success{
                 print("worked in maps")
                 //                                print("student array: \(data)")
@@ -44,9 +49,7 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
                 }
                 
             }
-            else{
-                print(error.debugDescription)
-            }
+            
         })
         
     }
