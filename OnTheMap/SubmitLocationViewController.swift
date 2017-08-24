@@ -28,9 +28,12 @@ class SubmitLocationViewController: UIViewController {
             guard  error == nil else{
                 print(error.debugDescription)
                 performUIUpdatesOnMain {
-                    self.displayAlert("Could not find location", (error?.localizedDescription)!)
+                    self.activityIndicator.stopAnimating()
+                    self.displayAlert("Could not find location", "\(error!.localizedDescription) please retry")
                     
                 }
+                self.dismiss(animated: true, completion: nil)
+
                 return
             }
             if success{
@@ -77,7 +80,14 @@ class SubmitLocationViewController: UIViewController {
             guard error == nil else {
                 print("\(error!.localizedDescription)")
                 performUIUpdatesOnMain {
-                    self.displayAlert("cannot post user location", "\(error!.localizedDescription)")
+                    self.displayAlert("cannot get user location", "\(error!.localizedDescription)")
+                    self.dismiss(animated: true, completion: nil)
+                }
+                return
+            }
+            guard data != nil else{
+                performUIUpdatesOnMain {
+                    self.displayAlert("error", "could check if user location exists")
                 }
                 return
             }
@@ -115,6 +125,7 @@ class SubmitLocationViewController: UIViewController {
             let alertController=UIAlertController(title:title, message:message, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Update", style: .destructive, handler: { (UIAlertAction) in
                 
+
                 ParseClient.sharedInstance().putStudentLocation(self.locationString!, self.longitudeForSubmit!, self.latitudeForSubmit!,self.userURL, { (success, error) in
                     guard error == nil else{
                         performUIUpdatesOnMain {
@@ -150,11 +161,13 @@ class SubmitLocationViewController: UIViewController {
                         return
                         
                     }
+                
                     
                     
                     //                print("user data:\(data)")
                     
                     print("here")
+                    if success{
                     performUIUpdatesOnMain {
                         
                        // self.navigationController?.popToRootViewController(animated: true)
@@ -169,6 +182,7 @@ class SubmitLocationViewController: UIViewController {
                         
                         
                     }
+                }
                 }
             }))
             self.present(alertController, animated: true, completion: nil)

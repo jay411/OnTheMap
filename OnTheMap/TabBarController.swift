@@ -35,18 +35,18 @@ class TabBarController: UITabBarController {
                         performUIUpdatesOnMain {
                             
                             
-                            resultVC.viewWillAppear(true)
+                            resultVC.refresh()
                         }
                     }
                     else if self.selectedIndex == 1{
                         print("Locations Mapview controller called")
-                        let storyboard = UIStoryboard (name: "Main", bundle: nil)
-                        let resultVC = storyboard.instantiateViewController(withIdentifier: "LocationMapViewController") as! LocationMapViewController
+                                let resultVC=self.selectedViewController as! LocationMapViewController
+                            
+//                        let storyboard = UIStoryboard (name: "Main", bundle: nil)
+//                        let resultVC = storyboard.instantiateViewController(withIdentifier: "LocationMapViewController") as! LocationMapViewController
                         
                         performUIUpdatesOnMain {
-                            
-                            
-                            resultVC.viewWillAppear(true)
+                            resultVC.refresh()
                         }
                         
                         

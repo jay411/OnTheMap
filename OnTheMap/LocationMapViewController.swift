@@ -15,33 +15,26 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
 
 
     @IBOutlet weak var studentsMapView: MKMapView!
+    var annotations = [MKPointAnnotation]()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.studentArray = ParseClient.sharedInstance().allStudents
         studentsMapView.delegate=self
 
+//        self.studentArray = ParseClient.sharedInstance().allStudents
 //        self.createAnnotations()
         print("map view loaded")
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        ParseClient.sharedInstance().getAllLocations(false, { (success, error) in
+        ParseClient.sharedInstance().getAllLocations({ (success, error) in
             guard error == nil else{
-                    self.displayAlert("error loading data", "\(error!.localizedDescription)")
+                self.displayAlert("error loading data", "\(error!.localizedDescription)")
                 return
                 
             }
             if success{
                 print("worked in maps")
                 //                                print("student array: \(data)")
-
+                
                 performUIUpdatesOnMain {
                     //                    self.studentsMapView.reloadData()
                     self.createAnnotations()
@@ -51,18 +44,46 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
             }
             
         })
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        ParseClient.sharedInstance().getAllLocations(false, { (success, error) in
+//            guard error == nil else{
+//                    self.displayAlert("error loading data", "\(error!.localizedDescription)")
+//                return
+//                
+//            }
+//            if success{
+//                print("worked in maps")
+//                //                                print("student array: \(data)")
+//
+//                performUIUpdatesOnMain {
+//                    //                    self.studentsMapView.reloadData()
+//                    self.createAnnotations()
+//                    
+//                }
+//                
+//            }
+//            
+//        })
+
         
     }
     private func createAnnotations(){
         
         // We will create an MKPointAnnotation for each dictionary in "locations". The
         // point annotations will be stored in this array, and then provided to the map view.
-        var annotations = [MKPointAnnotation]()
         
         // The "locations" array is loaded with the sample data below. We are using the dictionaries
         // to create map annotations. This would be more stylish if the dictionaries were being
         // used to create custom structs. Perhaps StudentLocation structs.
-        
+        self.annotations.removeAll()
         for student in Students.sharedInstance().studentArray {
             
             // Notice that the float values are being used to create CLLocationDegree values.
@@ -96,8 +117,10 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
             }
             
             // Finally we place the annotation in an array of annotations.
-            annotations.append(annotation)
+            self.annotations.append(annotation)
         }
+        print("number of annotations: \(self.annotations.count)")
+
         self.studentsMapView.addAnnotations(annotations)
 
 
@@ -129,6 +152,32 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
                 app.open(URL(string: toOpen)!,options: [:], completionHandler: nil)
             }
         }
+    }
+    func refresh(){
+        ParseClient.sharedInstance().didRefresh=true
+        ParseClient.sharedInstance().getAllLocations({ (success, error) in
+            guard error == nil else{
+                self.displayAlert("error loading data", "\(error!.localizedDescription)")
+                return
+                
+            }
+            if success{
+                print("worked in maps")
+                //                                print("student array: \(data)")
+            
+                performUIUpdatesOnMain {
+                    self.studentsMapView.removeAnnotations(self.annotations)
+        
+                    
+                    //                    self.studentsMapView.reloadData()
+                    self.createAnnotations()
+                    
+                }
+                
+            }
+            
+        })
+        
     }
 
     

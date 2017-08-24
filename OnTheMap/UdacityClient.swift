@@ -47,6 +47,10 @@ class UdacityClient{
                         sendError(error: "invalid credentials")
                         return
                     }
+                    if (response as? HTTPURLResponse)!.statusCode == 500 {
+                        sendError(error: "Server error")
+                        return
+                    }
                     
                     sendError(error: "Your request returned \((response as? HTTPURLResponse)!.statusCode)!")
                     return

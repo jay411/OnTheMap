@@ -11,13 +11,13 @@ import CoreLocation
 
 class LocationsTableViewController: UITableViewController {
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate=self
         print("view did load called")
+       
         
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -26,9 +26,10 @@ class LocationsTableViewController: UITableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ParseClient.sharedInstance().getAllLocations(false, { (success, error) in
+        print("view will appear called")
+        ParseClient.sharedInstance().getAllLocations({ (success, error) in
             if success{
-                print("worked view will appear in table")
+                print("worked view did load in table")
                 //                                print("student array: \(data)")
                 performUIUpdatesOnMain {
                     self.tableView.reloadData()
@@ -39,6 +40,7 @@ class LocationsTableViewController: UITableViewController {
                 self.displayAlert("error loading data", "\(error!.localizedDescription)")
             }
         })
+        
         
     }
     
@@ -58,7 +60,6 @@ class LocationsTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return Students.sharedInstance().studentArray.count
 
-//        return self.studentArray.count
     }
 
     
@@ -144,8 +145,29 @@ class LocationsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    @IBAction func postPressed(_ sender: Any) {
-        self.performSegue(withIdentifier: "postInfoSegue", sender: self)
+
+    func refresh(){
+        ParseClient.sharedInstance().didRefresh=true
+        
+        ParseClient.sharedInstance().getAllLocations({ (success, error) in
+            guard error == nil else{
+                self.displayAlert("error loading data", "\(error!.localizedDescription)")
+                return
+                
+            }
+            if success{
+                print("worked in refresh")
+                //                                print("student array: \(data)")
+                
+                performUIUpdatesOnMain {
+                    self.tableView.reloadData()
+                    
+                }
+                
+            }
+            
+        })
+        
     }
 
 }

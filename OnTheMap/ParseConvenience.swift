@@ -11,17 +11,20 @@ import Foundation
 import CoreLocation
 extension ParseClient{
     
-    func getAllLocations(_ latest:Bool,_ completionHandlerForGetAll: @escaping(_ success:Bool, _ error:Error?)->Void){
+    func getAllLocations(_ completionHandlerForGetAll: @escaping(_ success:Bool, _ error:Error?)->Void){
         var queryItems=[String:AnyObject]()
-        if latest == true{
+        print("didrefresh \(self.didRefresh)")
+        if self.didRefresh == true{
             queryItems=[ParameterKeys.Order:"-updatedAt" as AnyObject,ParameterKeys.Limit:100 as AnyObject]
         }
         else{
             queryItems=[ParameterKeys.Limit:"100" as AnyObject]
         }
+        print("query:\(queryItems)")
         self.taskForGettingAllLocations(queryItems){ success,error in
             if success{
                 print("/n/n/n/nGot it")
+                
                 
                 completionHandlerForGetAll(true,nil)
             }
@@ -48,9 +51,9 @@ extension ParseClient{
                     print("no object id")
                     return completionHandlerForGet(true,nil,nil)
                     }
-                print("\(data?[ParseClient.ResponseKeys.ObjectID])")
+                print("\(String(describing: data?[ParseClient.ResponseKeys.ObjectID]))")
                 self.objectID=data?[ParseClient.ResponseKeys.ObjectID] as! String
-                print("object id for client\(self.objectID)")
+                print("object id for client\(String(describing: self.objectID))")
                 completionHandlerForGet(true,data,nil)
             }
         }

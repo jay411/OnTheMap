@@ -25,6 +25,7 @@ struct StudentInfo{
         latitude = value[ParseClient.ResponseKeys.Latitude] as? CLLocationDegrees
         longitude = value[ParseClient.ResponseKeys.Longitude] as? CLLocationDegrees
         objectID = value[ParseClient.ResponseKeys.ObjectId] as? String
+        location = value[ParseClient.ResponseKeys.MapString] as? String
         
         
     }
