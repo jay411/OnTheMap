@@ -52,6 +52,7 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     override func viewWillAppear(_ animated: Bool) {
+        print("map view will appear called")
         super.viewWillAppear(animated)
 //        ParseClient.sharedInstance().getAllLocations(false, { (success, error) in
 //            guard error == nil else{
@@ -157,7 +158,7 @@ class LocationMapViewController: UIViewController,MKMapViewDelegate {
         ParseClient.sharedInstance().didRefresh=true
         ParseClient.sharedInstance().getAllLocations({ (success, error) in
             guard error == nil else{
-                self.displayAlert("error loading data", "\(error!.localizedDescription)")
+                self.displayAlert("error reloading data", "\(error!.localizedDescription)")
                 return
                 
             }

@@ -19,10 +19,11 @@ class ParseClient{
            let urlParameters=parameters
            let request = NSMutableURLRequest(url: parseURLFromParameters(urlParameters, withPathExtension: ParseClient.Methods.method))
             var allStudents=[StudentInfo]()
+        
         func sendError(error: String) {
             print(error)
             let userInfo = [NSLocalizedDescriptionKey: error]
-            completionHandlerForAllLocations(false, NSError(domain: "taskForGetAll", code: 1, userInfo: userInfo))
+            return completionHandlerForAllLocations(false, NSError(domain: "taskForGetAll", code: 1, userInfo: userInfo))
         }
     
         
@@ -31,6 +32,7 @@ class ParseClient{
             request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
             print("request: \(request)")
             let session = URLSession.shared
+
             let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil { // Handle error...
                 return completionHandlerForAllLocations(false,error)
@@ -41,7 +43,21 @@ class ParseClient{
                     parsedResult = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as AnyObject
                     
                 }catch{
-                    print("Error")
+                    sendError(error: "no reply")
+                    
+                }
+                guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                    if (response as? HTTPURLResponse)!.statusCode == 403 {
+                        sendError(error: "unauthorized")
+                        return
+                    }
+                    if (response as? HTTPURLResponse)!.statusCode >= 500 && (response as? HTTPURLResponse)!.statusCode <= 599  {
+                        sendError(error: "Server error")
+                        return
+                    }
+                     sendError(error: "error sending request")
+                    return
+                    
                     
                 }
                 guard let replyDictionary = parsedResult[ParseClient.ResponseKeys.Results] as? [[String:AnyObject]] else{
@@ -100,7 +116,8 @@ class ParseClient{
                     sendError(error: "Server error")
                     return
                 }
-                return sendError(error: "error sending request")
+                sendError(error: "error sending request")
+                return
                 
                 
             }

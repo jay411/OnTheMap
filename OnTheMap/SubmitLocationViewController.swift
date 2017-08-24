@@ -24,17 +24,25 @@ class SubmitLocationViewController: UIViewController {
         super.viewDidLoad()
         self.activityIndicator.hidesWhenStopped=true
         self.activityIndicator.isHidden=true
+        self.submitButton.isHidden=false
         self.forwardGecode(self.locationString!) { (success, location, error) in
             guard  error == nil else{
                 print(error.debugDescription)
                 performUIUpdatesOnMain {
                     self.activityIndicator.stopAnimating()
-                    self.displayAlert("Could not find location", "\(error!.localizedDescription) please retry")
+                    self.submitButton.isHidden=true
+                    self.displayAlert("Could not find location", "\(error!.localizedDescription)please retry")
+
                     
                 }
-                self.dismiss(animated: true, completion: nil)
+
 
                 return
+            }
+            if success == false{
+                performUIUpdatesOnMain {
+                    self.displayAlert("Could not find location on map", "Please Retry")
+                }
             }
             if success{
                 let coordinate=location?.coordinate
@@ -81,7 +89,6 @@ class SubmitLocationViewController: UIViewController {
                 print("\(error!.localizedDescription)")
                 performUIUpdatesOnMain {
                     self.displayAlert("cannot get user location", "\(error!.localizedDescription)")
-                    self.dismiss(animated: true, completion: nil)
                 }
                 return
             }
@@ -124,7 +131,7 @@ class SubmitLocationViewController: UIViewController {
             
             let alertController=UIAlertController(title:title, message:message, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Update", style: .destructive, handler: { (UIAlertAction) in
-                
+            
 
                 ParseClient.sharedInstance().putStudentLocation(self.locationString!, self.longitudeForSubmit!, self.latitudeForSubmit!,self.userURL, { (success, error) in
                     guard error == nil else{
@@ -137,7 +144,7 @@ class SubmitLocationViewController: UIViewController {
                         
                         print("updated")
                         performUIUpdatesOnMain {
-                            
+                            ParseClient.sharedInstance().didRefresh=true
                             
                             self.presentingViewController?.dismiss(animated: true, completion: nil)
 
@@ -170,8 +177,8 @@ class SubmitLocationViewController: UIViewController {
                     if success{
                     performUIUpdatesOnMain {
                         
-                       // self.navigationController?.popToRootViewController(animated: true)
-//                        let navVC=self.storyboard?.instantiateViewController(withIdentifier: "PostNavigationController") as! UINavigationController
+                        ParseClient.sharedInstance().didRefresh=true
+
                         self.presentingViewController?.dismiss(animated: true, completion: nil)
 //                        self.dismiss(animated: true, completion: nil)
 //                        navVC.popToRootViewController(animated: true)
@@ -216,6 +223,9 @@ extension SubmitLocationViewController:MKMapViewDelegate{
             if let placemarksArray=placemarks, placemarksArray.count > 0{
                 
                 return completionHandlerForGeocode(true,(placemarksArray.first?.location)!,nil)
+            }
+            else{
+                return completionHandlerForGeocode(false,nil,nil)
             }
         }
         

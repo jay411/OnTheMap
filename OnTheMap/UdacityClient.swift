@@ -153,7 +153,7 @@ class UdacityClient{
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil { // Handle error…
-                return
+                return completionHandlerForDelete(false,nil,error)
             }
             let range = Range(5..<data!.count)
             let newData = data?.subdata(in: range) /* subset response data! */

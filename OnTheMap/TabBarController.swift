@@ -27,7 +27,7 @@ class TabBarController: UITabBarController {
 
     @IBAction func refresh(_ sender: Any) {
                 //
-            
+        
                             if self.selectedIndex == 0{
                         print("locations tableVIew controller called")
                         let storyboard = UIStoryboard (name: "Main", bundle: nil)
@@ -35,15 +35,20 @@ class TabBarController: UITabBarController {
                         performUIUpdatesOnMain {
                             
                             
-                            resultVC.refresh()
+                            resultVC.refresh({ (success, error) in
+                                guard error == nil else{
+                                    self.displayAlert("error reloading", "\(error!.localizedDescription)")
+                                    return
+                                }
+                            })
+                            
                         }
                     }
                     else if self.selectedIndex == 1{
                         print("Locations Mapview controller called")
                                 let resultVC=self.selectedViewController as! LocationMapViewController
                             
-//                        let storyboard = UIStoryboard (name: "Main", bundle: nil)
-//                        let resultVC = storyboard.instantiateViewController(withIdentifier: "LocationMapViewController") as! LocationMapViewController
+
                         
                         performUIUpdatesOnMain {
                             resultVC.refresh()
@@ -51,7 +56,7 @@ class TabBarController: UITabBarController {
                         
                         
                     }
-                
+        
                 
             }
     

@@ -15,6 +15,7 @@ class LocationsTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.delegate=self
         print("view did load called")
+        
        
         
         
@@ -146,28 +147,31 @@ class LocationsTableViewController: UITableViewController {
     }
     */
 
-    func refresh(){
+    func refresh(_ completionForRefresh:@escaping(_ success:Bool,_ error:Error?)->Void){
         ParseClient.sharedInstance().didRefresh=true
         
         ParseClient.sharedInstance().getAllLocations({ (success, error) in
-            guard error == nil else{
-                self.displayAlert("error loading data", "\(error!.localizedDescription)")
-                return
-                
-            }
+           
             if success{
                 print("worked in refresh")
                 //                                print("student array: \(data)")
-                
+                completionForRefresh(true,nil)
+
                 performUIUpdatesOnMain {
+
                     self.tableView.reloadData()
                     
                 }
                 
             }
+            else{
+                completionForRefresh(false,error)
+
+            }
+            
             
         })
-        
+      return
     }
 
 }

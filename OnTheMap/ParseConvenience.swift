@@ -26,14 +26,16 @@ extension ParseClient{
                 print("/n/n/n/nGot it")
                 
                 
-                completionHandlerForGetAll(true,nil)
+                return completionHandlerForGetAll(true,nil)
             }
             else{
+                print("error in getting location")
                 completionHandlerForGetAll(false,error)
             }
             
             
         }
+        return
         
     }
     
